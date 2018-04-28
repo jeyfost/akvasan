@@ -1,5 +1,5 @@
 <?php
-	$db = 'dbname';
+	$db = 'akvasan';
 	$host = 'localhost';
 	$user = 'root';
 	$password = '';
