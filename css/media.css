@@ -25,6 +25,7 @@
 @media only screen and (max-width : 480px) {
     #phoneContainer {margin: 10px auto auto auto; text-align: center; width: auto; display: inline-block; float: none;}
     #logo {text-align: center; width: 100%; padding-top: 20px;}
+    #searchSection {margin-top: 15px;}
 
     .bottomMenu {height: auto;}
     .container25 {float: none;}

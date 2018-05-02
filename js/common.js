@@ -1,3 +1,11 @@
+$(window).on("load", function() {
+    $(".search").width(parseInt($("#searchSection").width() - 10));
+});
+
+$(window).on("resize", function () {
+    $(".search").width(parseInt($("#searchSection").width() - 10));
+});
+
 function menuPoint(container, line, action) {
     if(action === 1) {
         $("#" + line).css("background-color", "#fff");

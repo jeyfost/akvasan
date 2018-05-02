@@ -33,3 +33,4 @@ a:hover {color: #54a9fc;}
 .text-center {text-align: center;}
 .mobile, .mobile a {color: #396ea2;}
 .mobileActive {background-color: #d5eaff;}
+.search {height: 30px; border: 1px solid #e0e0e0; padding-left: 10px;}

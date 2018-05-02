@@ -42,6 +42,8 @@ $page = $pageResult->fetch_assoc();
 
 <body>
 
+    <!-- MENU START -->
+
     <div class="mobileMenu">
         <div class="row" id="mobileMenuClose"><i class="fa fa-times" aria-hidden="true" onclick="closeMobileMenu()"></i></div>
         <div class="row text-center mobile mobileActive">Главная</div>
@@ -131,6 +133,14 @@ $page = $pageResult->fetch_assoc();
             <div class="clear"></div>
         </div>
     </div>
+
+    <div class="innerSection" id="searchSection">
+        <form method="post">
+            <input id="searchInput" name="search" class="search" placeholder="Поиск..." />
+        </form>
+    </div>
+
+    <!-- MENU END -->
 
 </body>
 
