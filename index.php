@@ -27,12 +27,13 @@ $page = $pageResult->fetch_assoc();
 
     <link href="https://fonts.googleapis.com/css?family=Istok+Web" rel="stylesheet">
 
-	<link rel="shortcut icon" href="/img/system/favicon.png" />
+	<link rel="shortcut icon" href="/img/system/favicon.ico" />
+	<link rel="stylesheet" href="/libs/font-awesome-4.7.0/css/font-awesome.min.css" />
 	<link rel="stylesheet" href="/css/main.css" />
 	<link rel="stylesheet" href="/css/media.css" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="js/common.js"></script>
+    <script src="/js/common.js"></script>
 
     <!-- Yandex.Metrika counter --><!-- /Yandex.Metrika counter -->
     <!-- Google Analytics counter --><!-- /Google Analytics counter -->
@@ -41,8 +42,19 @@ $page = $pageResult->fetch_assoc();
 
 <body>
 
+    <div class="mobileMenu">
+        <div class="row" id="mobileMenuClose"><i class="fa fa-times" aria-hidden="true" onclick="closeMobileMenu()"></i></div>
+        <div class="row text-center mobile mobileActive">Главная</div>
+        <div class="row text-center mobile"><a href="/catalogue/">Каталог</a></div>
+        <div class="row text-center mobile"><a href="/delivery/">Доставка и оплата</a></div>
+        <div class="row text-center mobile"><a href="/about/">О компании</a></div>
+        <div class="row text-center mobile"><a href="/reviews/">Отзывы</a></div>
+        <div class="row text-center mobile"><a href="/contacts/">Контакты</a></div>
+    </div>
+
     <div class="topMenu">
-        <div class="innerSection">
+        <div class="mobileMenuIcon" onclick="showMobileMenu()"><i class="fa fa-bars" aria-hidden="true"></i></div>
+        <div class="innerSection" id="menu">
             <div class="menuPointContainer active" id="mainContainer">
                 <div class="topLine white" id="mainTopLine"></div>
                 <a href="/"><div class="menuPoint" id="mainPoint">Главная</div></a>
@@ -67,6 +79,56 @@ $page = $pageResult->fetch_assoc();
                 <div class="topLine" id="contactsTopLine"></div>
                 <a href="/contacts/"><div class="menuPoint" id="contactsPoint">Контакты</div></a>
             </div>
+        </div>
+    </div>
+
+    <div class="bottomMenu">
+        <div class="container">
+            <div class="container25" id="logo">
+                <a href="/"><img src="/img/system/logo.jpg"></a>
+            </div>
+            <div class="container25" id="webContainer">
+                <div class="menuRow">
+                    <div class="iconContainer"><img src="/img/system/viber.png" /></div>
+                    <div class="textContainer"><a href="tel:<?= COUNTRY_CODE ?> (<?= VIBER_CODE ?>) <?= VIBER_NUMBER ?>"><?= COUNTRY_CODE ?> <?= VIBER_CODE ?> <b><?= VIBER_NUMBER ?></b></a></div>
+                    <div class="clear"></div>
+                </div>
+                <div class="menuRow">
+                    <div class="iconContainer"><img src="/img/system/skype.jpg" /></div>
+                    <div class="textContainer"><a href="skype:<?= SKYPE_LOGIN ?>"><?= SKYPE_LOGIN ?></div>
+                    <div class="clear"></div>
+                </div>
+                <div class="menuRow">
+                    <div class="iconContainer"><img src="/img/system/at.png" /></div>
+                    <div class="textContainer"><a href="mailto:<?= CONTACT_EMAIL ?>"><?= CONTACT_EMAIL ?></a></div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="container25" id="phoneContainer">
+                <div class="menuRow">
+                    <div class="iconContainer"><img src="/img/system/velcom.png" /></div>
+                    <div class="textContainer"><a href="tel:<?= COUNTRY_CODE ?> (<?= VELCOM_CODE ?>) <?= VELCOM_NUMBER ?>"><?= COUNTRY_CODE ?> <?= VELCOM_CODE ?> <b><?= VELCOM_NUMBER ?></b></a></div>
+                    <div class="clear"></div>
+                </div>
+                <div class="menuRow">
+                    <div class="iconContainer"><img src="/img/system/mts.jpg" /></div>
+                    <div class="textContainer"><a href="tel:<?= COUNTRY_CODE ?> (<?= MTS_CODE ?>) <?= MTS_NUMBER ?>"><?= COUNTRY_CODE ?> <?= MTS_CODE ?> <b><?= MTS_NUMBER ?></b></a></div>
+                    <div class="clear"></div>
+                </div>
+                <div class="menuRow">
+                    <div class="iconContainer"><img src="/img/system/life.png" /></div>
+                    <div class="textContainer"><a href="tel:<?= COUNTRY_CODE ?> (<?= LIFE_CODE ?>) <?= LIFE_NUMBER ?>"><?= COUNTRY_CODE ?> <?= LIFE_CODE ?> <b><?= LIFE_NUMBER ?></b></a></div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="container25" id="timeContainer">
+                <b>Время работы:</b>
+                <br /><br />
+                <span>Пн-Пт: 9:00 - 18:00</span>
+                <br />
+                <span>Сб: 10:00-17</span>
+            </div>
+            <div class="clear"></div>
         </div>
     </div>
 

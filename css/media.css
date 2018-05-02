@@ -2,22 +2,32 @@
 
 /* Large Devices, Wide Screens */
 @media only screen and (max-width : 1200px) {
-
+    .container25 {width: 22%;}
 }
 
 /* Medium Devices, Desktops */
 @media only screen and (max-width : 992px) {
+    #webContainer {display: none;}
 
+    .container25 {width: 25%;}
 }
 
 /* Small Devices, Tablets */
 @media only screen and (max-width : 768px) {
+    #timeContainer {display: none;}
+    #menu {display: none;}
 
+    .container25 {width: 40%;}
+    .mobileMenuIcon {display: inline-block;}
 }
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width : 480px) {
+    #phoneContainer {margin: 10px auto auto auto; text-align: center; width: auto; display: inline-block; float: none;}
+    #logo {text-align: center; width: 100%; padding-top: 20px;}
 
+    .bottomMenu {height: auto;}
+    .container25 {float: none;}
 }
 
 /* Custom, iPhone Retina */
