@@ -274,6 +274,10 @@ $page = $pageResult->fetch_assoc();
         </div>
     </div>
 
+    <div class="section white" style="padding-bottom: 20px;">
+        <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A6d498f3ad922bd93961b582ad2abcbadd59babd772e2b02d80234d0570285614&amp;width=100%25&amp;height=500&amp;lang=ru_RU&amp;scroll=false"></script>
+    </div>
+
 </body>
 
 </html>

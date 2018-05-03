@@ -9,6 +9,7 @@ a:hover, .goodContainerName a:hover {color: #54a9fc;}
 .mobile:hover {background-color: #d5eaff;}
 .goodContainer:hover {box-shadow: 0 5px 15px -4px rgba(0, 0, 0, 0.4);}
 .promoButton:hover {background-color: #396ea2;}
+.advantageIconContainer:hover, .goodContainerPhoto img:hover {opacity: .7;}
 
 #logo {min-width: 250px;}
 #phoneContainer, #webContainer {margin-top: 20px; float: right;}
@@ -42,12 +43,13 @@ a:hover, .goodContainerName a:hover {color: #54a9fc;}
 .header {width: 100%; text-align: center;}
 .goodContainer {width: 220px; border: 1px solid #e0e0e0; background-color: #f6f6f6; transition: .3s; display: inline-block; margin-top: 5px;}
 .goodContainerPhoto {background-color: #fff;}
+.goodContainerPhoto img {transition: .3s;}
 .goodContainerDescription {width: 210px; padding: 15px 5px;}
 .goodContainerName {text-align: center; width: 100%; color: #396ea2;}
 .goodContainerName a {color: #396ea2;}
 .goodContainerPrice {font-size: 20px; text-align: center; width: 100%;}
 .promoButton {color: #fff; background-color: #54a9fc; transition: .3s; padding: 5px 30px; margin: 0 auto; display: inline-block;}
 .slider {width: 80%; margin: 20px auto auto auto;}
-.advantageIconContainer {display: inline-block; margin-top: 5px; width: 220px; background-color: transparent; vertical-align: top;}
+.advantageIconContainer {display: inline-block; margin-top: 5px; width: 220px; background-color: transparent; vertical-align: top; transition: .3s;}
 .advantagePhoto {width: 100%; text-align: center;}
 .advantageText {text-align: center; font-size: 16px; color: #292929; width: 100%;}
