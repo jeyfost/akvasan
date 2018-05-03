@@ -37,7 +37,7 @@ a:hover, .goodContainerName a:hover {color: #54a9fc;}
 .iconContainer {width: 23px; text-align: center; float: left;}
 .textContainer {float: left; margin-left: 10px;}
 .mobileMenuIcon {display: none; color: #fff; font-size: 25px; margin-left: 20px; padding-top: 5px; cursor: pointer;}
-.mobileMenu {width: 100%; padding-top: 10px; padding-bottom: 10px; box-shadow: 0 5px 6px -4px rgba(0, 0, 0, 0.17) !important; background-color: #fff; color: #000; z-index: 200; position: absolute; top: -1000px; left: 0; display: none; transition: .3s;}
+.mobileMenu {width: 100%; padding-top: 10px; padding-bottom: 10px; box-shadow: 0 5px 6px -4px rgba(0, 0, 0, 0.17) !important; background-color: #fff; color: #000; z-index: 200; position: fixed; top: -1000px; left: 0; display: none; transition: .3s;}
 .text-center {text-align: center;}
 .mobile, .mobile a {color: #396ea2;}
 .mobileActive {background-color: #d5eaff;}

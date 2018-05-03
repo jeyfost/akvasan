@@ -31,6 +31,13 @@ $(window).on("scroll", function () {
     }
 });
 
+$(document).on("mouseup", function (e) {
+    const container = $(".mobileMenu");
+    if (container.has(e.target).length === 0){
+        container.hide('fast');
+    }
+});
+
 function menuPoint(container, line, action) {
     if(action === 1) {
         $("#" + line).css("background-color", "#fff");
@@ -45,7 +52,8 @@ function showMobileMenu() {
     $('.mobileMenu').css("display", "block");
 
     setTimeout(function () {
-        $('.mobileMenu').css("top", "0");
+        $('.mobileMenu').css("top", "45px");
+        $('.mobileMenu').css("z-index", "202");
     }, 1);
 }
 
@@ -54,5 +62,6 @@ function closeMobileMenu() {
 
     setTimeout(function () {
         $('.mobileMenu').css("display", "none");
+        $('.mobileMenu').css("z-index", "1");
     }, 300);
 }
