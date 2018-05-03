@@ -30,12 +30,17 @@ $page = $pageResult->fetch_assoc();
 	<link rel="shortcut icon" href="/img/system/favicon.ico" />
 	<link rel="stylesheet" href="/libs/font-awesome-4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="/libs/lightview/css/lightview/lightview.css" />
+    <link rel="stylesheet" type="text/css" href="/libs/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="/libs/slick/slick-theme.css" />
 	<link rel="stylesheet" href="/css/main.css" />
 	<link rel="stylesheet" href="/css/media.css" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-migrate-3.0.1.js"></script>
     <script type="text/javascript" src="/libs/lightview/js/lightview/lightview.js"></script>
-    <script src="/js/common.js"></script>
+    <script type="text/javascript" src="/libs/slick/slick.min.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
 
     <!-- Yandex.Metrika counter --><!-- /Yandex.Metrika counter -->
     <!-- Google Analytics counter --><!-- /Google Analytics counter -->
@@ -227,6 +232,17 @@ $page = $pageResult->fetch_assoc();
                                 </div>
                             </div>
                         ";
+                }
+            ?>
+        </div>
+    </div>
+
+    <div class="section white" id="sliderContainer">
+        <div class="slider">
+            <?php
+                $logoResult = $mysqli->query("SELECT * FROM akvasan_partners");
+                while($logo = $logoResult->fetch_assoc()) {
+                    echo "<div><img src='/img/partners/".$logo['img']."' /></div>";
                 }
             ?>
         </div>

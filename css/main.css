@@ -37,7 +37,7 @@ a:hover, .goodContainerName a:hover {color: #54a9fc;}
 .mobile, .mobile a {color: #396ea2;}
 .mobileActive {background-color: #d5eaff;}
 .search {height: 30px; border: 1px solid #e0e0e0; padding-left: 10px; font-style: italic; color: #396ea2;}
-.section {width: 100%; padding-top: 20px; padding-bottom: 20px; margin-top: 15px;}
+.section {width: 100%; padding-top: 20px; padding-bottom: 40px; margin-top: 15px;}
 .white {background-color: #fff;}
 .header {width: 100%; text-align: center;}
 .goodContainer {width: 220px; border: 1px solid #e0e0e0; background-color: #f6f6f6; transition: .3s; display: inline-block; margin-top: 5px;}
@@ -47,3 +47,4 @@ a:hover, .goodContainerName a:hover {color: #54a9fc;}
 .goodContainerName a {color: #396ea2;}
 .goodContainerPrice {font-size: 20px; text-align: center; width: 100%;}
 .promoButton {color: #fff; background-color: #54a9fc; transition: .3s; padding: 5px 30px; margin: 0 auto; display: inline-block;}
+.slider {width: 80%; margin: 20px auto auto auto;}
