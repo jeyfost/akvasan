@@ -328,6 +328,26 @@ $page = $pageResult->fetch_assoc();
         </div>
     </div>
 
+    <div class="bottomFooter">
+        <div class="innerSection" id="footerInnerSection">
+            <div class="footerLeft">
+                <span>ИП Борисова Т.В. г. Могилёв, ул. Быховская, 6. Зарегистрирован в торговом реестре 01.01.2010 в Могилёвском облостном исполнительном комитете. УНП 77777777. Свидетельство о государственной регистрации выдано Могилёвским областным исполкомом 01.01.2010 г.</span>
+                <br /><br />
+                <span>Создание сайта: </span><a href="https://airlab.by/"><span class="footerLink">airlab.by</span></a>
+            </div>
+            <div class="footerRight">
+                <b>Заказы по телефону:</b>
+                <br /><br />
+                <span>Пн-Пт: 9:00 - 18:00</span>
+                <br />
+                <span>Сб: 10:00 - 17:00</span>
+                <br />
+                <span>Вс: выходной</span>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
     <!-- FOOTER END -->
 
 </body>
