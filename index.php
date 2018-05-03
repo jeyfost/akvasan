@@ -248,6 +248,32 @@ $page = $pageResult->fetch_assoc();
         </div>
     </div>
 
+    <div class="section">
+        <div class="header"><h1>Преимущества AKVASAN.BY</h1></div>
+        <div class="row text-center">
+            <div class="advantageIconContainer">
+                <div class="advantagePhoto"><img src="/img/system/icon-price.png" /></div>
+                <div class="advantageText">ПРИЯТНЫЕ ЦЕНЫ<br />БЕЗ ПЕРЕПЛАТ</div>
+            </div>
+            <div class="advantageIconContainer">
+                <div class="advantagePhoto"><img src="/img/system/icon-good.png" /></div>
+                <div class="advantageText">НАДЁЖНЫЙ<br />СЕРВИС</div>
+            </div>
+            <div class="advantageIconContainer">
+                <div class="advantagePhoto"><img src="/img/system/icon-delivery.png" /></div>
+                <div class="advantageText">БЕСПЛАТНАЯ ДОСТАВКА<br />ПО МОГИЛЁВУ</div>
+            </div>
+            <div class="advantageIconContainer">
+                <div class="advantagePhoto"><img src="/img/system/icon-warranty.png" /></div>
+                <div class="advantageText">ГАРАНТИЯ<br />КАЧЕСТВА</div>
+            </div>
+            <div class="advantageIconContainer">
+                <div class="advantagePhoto"><img src="/img/system/icon-handshake.png" /></div>
+                <div class="advantageText">ОФИЦИАЛЬНЫЙ<br />ИМПОРТЁР</div>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>

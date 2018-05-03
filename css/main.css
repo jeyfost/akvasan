@@ -48,3 +48,6 @@ a:hover, .goodContainerName a:hover {color: #54a9fc;}
 .goodContainerPrice {font-size: 20px; text-align: center; width: 100%;}
 .promoButton {color: #fff; background-color: #54a9fc; transition: .3s; padding: 5px 30px; margin: 0 auto; display: inline-block;}
 .slider {width: 80%; margin: 20px auto auto auto;}
+.advantageIconContainer {display: inline-block; margin-top: 5px; width: 220px; background-color: transparent; vertical-align: top;}
+.advantagePhoto {width: 100%; text-align: center;}
+.advantageText {text-align: center; font-size: 16px; color: #292929; width: 100%;}
