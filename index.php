@@ -29,10 +29,12 @@ $page = $pageResult->fetch_assoc();
 
 	<link rel="shortcut icon" href="/img/system/favicon.ico" />
 	<link rel="stylesheet" href="/libs/font-awesome-4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/libs/lightview/css/lightview/lightview.css" />
 	<link rel="stylesheet" href="/css/main.css" />
 	<link rel="stylesheet" href="/css/media.css" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/libs/lightview/js/lightview/lightview.js"></script>
     <script src="/js/common.js"></script>
 
     <!-- Yandex.Metrika counter --><!-- /Yandex.Metrika counter -->
@@ -141,6 +143,50 @@ $page = $pageResult->fetch_assoc();
     </div>
 
     <!-- MENU END -->
+
+    <div class="section white">
+        <div class="header"><h1>Новые поступления</h1></div>
+        <div class="row text-center">
+            <?php
+                $goodResult = $mysqli->query("SELECT * FROM akvasan_catalogue ORDER BY date DESC LIMIT 0, 5");
+                while($good = $goodResult->fetch_assoc()) {
+                    $categoryResult = $mysqli->query("SELECT * FROM akvasan_categories WHERE id = '".$good['category']."'");
+                    $category = $categoryResult->fetch_array();
+
+                    $subcategoryResult = $mysqli->query("SELECT * FROM akvasan_subcategories WHERE id = '".$good['subcategory']."'");
+                    $subcategory = $subcategoryResult->fetch_assoc();
+
+                    $r = intval($good['price']);
+                    $k = intval(($good['price'] - $r) * 100);
+
+                    if($k == 0) {
+                        $k = "00";
+                    } else {
+                        if(strlen($k == 1)) {
+                            $k = "0".$k;
+                        }
+                    }
+
+                    $price = $r." руб. ".$k." коп.";
+
+                    echo "
+                        <div class='goodContainer'>
+                            <div class='goodContainerPhoto'>
+                                <a href='/img/catalogue/big/".$good['photo']."' class='lightview' data-lightview-options='skin: \"light\"'><img src='/img/catalogue/preview/".$good['preview']."' /></a>
+                            </div>
+                            <div class='goodContainerDescription'>
+                                <div class='goodContainerName'><a href='/catalogue/".$category['url']."/".$subcategory['url']."/".$good['url']."'>".$good['name']."</a></div>
+                                <br />
+                                <div class='goodContainerPrice'>".$price."</div>
+                                <br />
+                                <a href='/catalogue/".$category['url']."/".$subcategory['url']."/".$good['url']."'><div class='promoButton'>Подробнее</div></a>
+                            </div>
+                        </div>
+                    ";
+                }
+            ?>
+        </div>
+    </div>
 
 </body>
 

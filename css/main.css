@@ -2,16 +2,19 @@
 
 body {margin: 0; padding: 0; background-color: #f8f8f8; font-family: "Istok Web", sans-serif; font-size: 14px;}
 a {text-decoration: none; color: #000; transition: .3s;}
+h1 {font-size: 24px; font-weight: normal;}
 
-a:hover {color: #54a9fc;}
+a:hover, .goodContainerName a:hover {color: #54a9fc;}
+
+.mobile:hover {background-color: #d5eaff;}
+.goodContainer:hover {box-shadow: 0 5px 15px -4px rgba(0, 0, 0, 0.4);}
+.promoButton:hover {background-color: #396ea2;}
 
 #logo {min-width: 250px;}
 #phoneContainer, #webContainer {margin-top: 20px; float: right;}
 #timeContainer {margin-top: 10px; float: right;}
 #mobileMenuClose {text-align: right; font-size: 20px; margin: 0 auto; width: 90%;}
 #mobileMenuClose i {cursor: pointer; color: #396ea2;}
-
-.mobile:hover {background-color: #d5eaff;}
 
 .topMenu {width: 100%; height: 45px; background-color: #54a9fc;}
 .innerSection {width: 98%; margin: 0 auto; text-align: center;}
@@ -33,4 +36,14 @@ a:hover {color: #54a9fc;}
 .text-center {text-align: center;}
 .mobile, .mobile a {color: #396ea2;}
 .mobileActive {background-color: #d5eaff;}
-.search {height: 30px; border: 1px solid #e0e0e0; padding-left: 10px;}
+.search {height: 30px; border: 1px solid #e0e0e0; padding-left: 10px; font-style: italic; color: #396ea2;}
+.section {width: 100%; padding-top: 20px; padding-bottom: 20px; margin-top: 15px;}
+.white {background-color: #fff;}
+.header {width: 100%; text-align: center;}
+.goodContainer {width: 220px; border: 1px solid #e0e0e0; background-color: #f6f6f6; transition: .3s; display: inline-block; margin-top: 5px;}
+.goodContainerPhoto {background-color: #fff;}
+.goodContainerDescription {width: 210px; padding: 15px 5px;}
+.goodContainerName {text-align: center; width: 100%; color: #396ea2;}
+.goodContainerName a {color: #396ea2;}
+.goodContainerPrice {font-size: 20px; text-align: center; width: 100%;}
+.promoButton {color: #fff; background-color: #54a9fc; transition: .3s; padding: 5px 30px; margin: 0 auto; display: inline-block;}
