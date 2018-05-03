@@ -12,8 +12,10 @@ a:hover, .goodContainerName a:hover {color: #54a9fc;}
 .advantageIconContainer:hover, .goodContainerPhoto img:hover {opacity: .7;}
 
 #logo {min-width: 250px;}
-#phoneContainer, #webContainer {margin-top: 20px; float: right;}
+#phoneContainer, #webContainer, #footerPhoneContainer {margin-top: 20px; float: right;}
+#footerRightContainer {margin-top: -5px; text-align: right; float: right;}
 #timeContainer {margin-top: 10px; float: right;}
+#footerMenuContainer {margin-top: 0; text-align: center; float: right;}
 #mobileMenuClose {text-align: right; font-size: 20px; margin: 0 auto; width: 90%;}
 #mobileMenuClose i {cursor: pointer; color: #396ea2;}
 
@@ -53,3 +55,4 @@ a:hover, .goodContainerName a:hover {color: #54a9fc;}
 .advantageIconContainer {display: inline-block; margin-top: 5px; width: 220px; background-color: transparent; vertical-align: top; transition: .3s;}
 .advantagePhoto {width: 100%; text-align: center;}
 .advantageText {text-align: center; font-size: 16px; color: #292929; width: 100%;}
+.topFooter {width: 100%; padding-top: 20px; padding-bottom: 20px; background-color: #f3f3f3;}

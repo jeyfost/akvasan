@@ -7,14 +7,14 @@
 
 /* Medium Devices, Desktops */
 @media only screen and (max-width : 992px) {
-    #webContainer {display: none;}
+    #webContainer, #footerRightContainer {display: none;}
 
     .container25 {width: 25%;}
 }
 
 /* Small Devices, Tablets */
 @media only screen and (max-width : 768px) {
-    #timeContainer {display: none;}
+    #timeContainer, #footerMenuContainer {display: none;}
     #menu {display: none;}
 
     .container25 {width: 40%;}
@@ -23,8 +23,8 @@
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width : 480px) {
-    #phoneContainer {margin: 10px auto auto auto; text-align: center; width: auto; display: inline-block; float: none;}
-    #logo {text-align: center; width: 100%; padding-top: 20px;}
+    #phoneContainer, #footerPhoneContainer {margin: 10px auto auto auto; text-align: center; width: auto; display: inline-block; float: none;}
+    #logo, #footerLogo {text-align: center; width: 100%; padding-top: 20px;}
     #searchSection {margin-top: 15px;}
     #sliderContainer {display: none;}
 

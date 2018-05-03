@@ -54,11 +54,11 @@ $page = $pageResult->fetch_assoc();
     <div class="mobileMenu">
         <div class="row" id="mobileMenuClose"><i class="fa fa-times" aria-hidden="true" onclick="closeMobileMenu()"></i></div>
         <div class="row text-center mobile mobileActive">Главная</div>
-        <div class="row text-center mobile"><a href="/catalogue/">Каталог</a></div>
-        <div class="row text-center mobile"><a href="/delivery/">Доставка и оплата</a></div>
-        <div class="row text-center mobile"><a href="/about/">О компании</a></div>
-        <div class="row text-center mobile"><a href="/reviews/">Отзывы</a></div>
-        <div class="row text-center mobile"><a href="/contacts/">Контакты</a></div>
+        <div class="row text-center mobile"><a href="/catalogue">Каталог</a></div>
+        <div class="row text-center mobile"><a href="/delivery">Доставка и оплата</a></div>
+        <div class="row text-center mobile"><a href="/about">О компании</a></div>
+        <div class="row text-center mobile"><a href="/reviews">Отзывы</a></div>
+        <div class="row text-center mobile"><a href="/contacts">Контакты</a></div>
     </div>
 
     <div class="topMenu">
@@ -70,23 +70,23 @@ $page = $pageResult->fetch_assoc();
             </div>
             <div class="menuPointContainer" id="catalogueContainer" onmouseover="menuPoint('catalogueContainer', 'catalogueTopLine', 1)" onmouseout="menuPoint('catalogueContainer', 'catalogueTopLine', 0)">
                 <div class="topLine" id="catalogueTopLine"></div>
-                <a href="/catalogue/"><div class="menuPoint" id="cataloguePoint">Каталог</div></a>
+                <a href="/catalogue"><div class="menuPoint" id="cataloguePoint">Каталог</div></a>
             </div>
             <div class="menuPointContainer" id="deliveryContainer" onmouseover="menuPoint('deliveryContainer', 'deliveryTopLine', 1)" onmouseout="menuPoint('deliveryContainer', 'deliveryTopLine', 0)">
                 <div class="topLine" id="deliveryTopLine"></div>
-                <a href="/delivery/"><div class="menuPoint" id="deliveryPoint">Доставка и оплата</div></a>
+                <a href="/delivery"><div class="menuPoint" id="deliveryPoint">Доставка и оплата</div></a>
             </div>
             <div class="menuPointContainer" id="aboutContainer" onmouseover="menuPoint('aboutContainer', 'aboutTopLine', 1)" onmouseout="menuPoint('aboutContainer', 'aboutTopLine', 0)">
                 <div class="topLine" id="aboutTopLine"></div>
-                <a href="/about/"><div class="menuPoint" id="aboutPoint">О компании</div></a>
+                <a href="/about"><div class="menuPoint" id="aboutPoint">О компании</div></a>
             </div>
             <div class="menuPointContainer" id="reviewsContainer" onmouseover="menuPoint('reviewsContainer', 'reviewsTopLine', 1)" onmouseout="menuPoint('reviewsContainer', 'reviewsTopLine', 0)">
                 <div class="topLine" id="reviewsTopLine"></div>
-                <a href="/reviews/"><div class="menuPoint" id="reviewsPoint">Отзывы</div></a>
+                <a href="/reviews"><div class="menuPoint" id="reviewsPoint">Отзывы</div></a>
             </div>
             <div class="menuPointContainer" id="contactsContainer" onmouseover="menuPoint('contactsContainer', 'contactsTopLine', 1)" onmouseout="menuPoint('contactsContainer', 'contactsTopLine', 0)">
                 <div class="topLine" id="contactsTopLine"></div>
-                <a href="/contacts/"><div class="menuPoint" id="contactsPoint">Контакты</div></a>
+                <a href="/contacts"><div class="menuPoint" id="contactsPoint">Контакты</div></a>
             </div>
         </div>
     </div>
@@ -277,6 +277,58 @@ $page = $pageResult->fetch_assoc();
     <div class="section white" style="padding-bottom: 20px;">
         <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A6d498f3ad922bd93961b582ad2abcbadd59babd772e2b02d80234d0570285614&amp;width=100%25&amp;height=500&amp;lang=ru_RU&amp;scroll=false"></script>
     </div>
+
+    <!-- FOOTER START -->
+
+    <div class="topFooter">
+        <div class="container">
+            <div class="container25" id="footerLogo">
+                <a href="/"><img src="/img/system/logo.png"></a>
+            </div>
+            <div class="container25" id="footerRightContainer">
+                <a href="/refund">Замена и возврат товара</a>
+                <br />
+                <a href="/warranty">Гарантия</a>
+                <br /><br />
+                <img src="/img/system/pay-logos.png" />
+                <br /><br />
+                <span><a href="/">akvasan.by</a> &copy; 2010-<?= date('Y') ?></span>
+            </div>
+            <div class="container25" id="footerMenuContainer">
+                <a href="/"><b>Главная</b></a>
+                <br />
+                <a href="/catalogue">Каталог</a>
+                <br />
+                <a href="/delivery">Доставка и оплата</a>
+                <br />
+                <a href="/about">О компании</a>
+                <br />
+                <a href="/reviews">Отзывы</a>
+                <br />
+                <a href="/contacts">Контакты</a>
+            </div>
+            <div class="container25" id="footerPhoneContainer">
+                <div class="menuRow">
+                    <div class="iconContainer"><img src="/img/system/velcom.png" /></div>
+                    <div class="textContainer"><a href="tel:<?= COUNTRY_CODE ?> (<?= VELCOM_CODE ?>) <?= VELCOM_NUMBER ?>"><?= COUNTRY_CODE ?> <?= VELCOM_CODE ?> <b><?= VELCOM_NUMBER ?></b></a></div>
+                    <div class="clear"></div>
+                </div>
+                <div class="menuRow">
+                    <div class="iconContainer"><img src="/img/system/mts.jpg" /></div>
+                    <div class="textContainer"><a href="tel:<?= COUNTRY_CODE ?> (<?= MTS_CODE ?>) <?= MTS_NUMBER ?>"><?= COUNTRY_CODE ?> <?= MTS_CODE ?> <b><?= MTS_NUMBER ?></b></a></div>
+                    <div class="clear"></div>
+                </div>
+                <div class="menuRow">
+                    <div class="iconContainer"><img src="/img/system/life.png" /></div>
+                    <div class="textContainer"><a href="tel:<?= COUNTRY_CODE ?> (<?= LIFE_CODE ?>) <?= LIFE_NUMBER ?>"><?= COUNTRY_CODE ?> <?= LIFE_CODE ?> <b><?= LIFE_NUMBER ?></b></a></div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    <!-- FOOTER END -->
 
 </body>
 
