@@ -6,6 +6,31 @@ $(window).on("resize", function () {
     $(".search").width(parseInt($("#searchSection").width() - 10));
 });
 
+$(window).on("scroll", function () {
+    if($(window).scrollTop() > 45 && $('.topMenu').attr("name") !== "fixed") {
+        $(".topMenu").attr("name", "fixed");
+
+        $(".topMenu").css("position", "fixed");
+        $(".topMenu").css("top", "-1000px");
+        $(".topMenu").css("left", "0");
+        $(".topMenu").css("z-index", "201");
+        $(".topMenu").css("transition", ".3s");
+        $(".topMenu").css("box-shadow", "0 5px 6px -4px rgba(0, 0, 0, 0.17)");
+
+        setTimeout(function () {
+            $(".topMenu").css("top", "0");
+        }, 1);
+    }
+
+    if($(window).scrollTop() <= 45) {
+        $(".topMenu").attr("name", "");
+
+        $(".topMenu").css("position", "relative");
+        $(".topMenu").css("z-index", "1");
+        $(".topMenu").css("box-shadow", "none");
+    }
+});
+
 function menuPoint(container, line, action) {
     if(action === 1) {
         $("#" + line).css("background-color", "#fff");
