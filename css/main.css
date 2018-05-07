@@ -43,6 +43,7 @@ a:hover, .goodContainerName a:hover, .searchDescription a:hover, .searchClose i:
 .mobileMenuIcon {display: none; color: #fff; font-size: 25px; margin-left: 20px; padding-top: 5px; cursor: pointer;}
 .mobileMenu {width: 100%; padding-top: 10px; padding-bottom: 10px; box-shadow: 0 5px 6px -4px rgba(0, 0, 0, 0.17) !important; background-color: #fff; color: #000; z-index: 200; position: fixed; top: -1000px; left: 0; display: none; transition: .3s;}
 .text-center {text-align: center;}
+.text-left {text-align: left;}
 .mobile, .mobile a {color: #396ea2;}
 .mobileActive {background-color: #d5eaff;}
 .section {width: 100%; padding-top: 20px; padding-bottom: 40px; margin-top: 15px;}

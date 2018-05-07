@@ -125,8 +125,8 @@ function scrollToTop() {
 
 function scrollFunction() {
     if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        document.getElementById("scroll").style.display = "block";
+        $("#scroll").fadeIn(200);
     } else {
-        document.getElementById("scroll").style.display = "none";
+        $("#scroll").fadeOut(200);
     }
 }
