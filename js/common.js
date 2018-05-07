@@ -1,9 +1,9 @@
 $(window).on("load", function() {
-    $(".search").width(parseInt($("#searchSection").width() - 10));
+    initialise();
 });
 
 $(window).on("resize", function () {
-    $(".search").width(parseInt($("#searchSection").width() - 10));
+    initialise()
 });
 
 $(window).on("scroll", function () {
@@ -13,12 +13,14 @@ $(window).on("scroll", function () {
         $(".topMenu").css("position", "fixed");
         $(".topMenu").css("top", "-1000px");
         $(".topMenu").css("left", "0");
+        $(".topMenu").css("opacity", "0");
         $(".topMenu").css("z-index", "201");
         $(".topMenu").css("transition", ".3s");
         $(".topMenu").css("box-shadow", "0 5px 6px -4px rgba(0, 0, 0, 0.17)");
 
         setTimeout(function () {
             $(".topMenu").css("top", "0");
+            $(".topMenu").css("opacity", "1");
         }, 1);
     }
 
@@ -36,7 +38,25 @@ $(document).on("mouseup", function (e) {
     if (container.has(e.target).length === 0){
         container.hide('fast');
     }
+
+    const sl = $(".searchList");
+    if (sl.has(e.target).length === 0){
+        sl.hide('fast');
+    }
 });
+
+$(document).on("keyup", function(e) {
+    if (e.keyCode === 27) {
+        hideSearch();
+    }
+});
+
+function initialise() {
+    $("#searchInput").width(parseInt($("#searchSection").width() - 10));
+
+    $(".searchList").width(parseInt($("#searchInput").width() - 10));
+    $(".searchList").offset({top: parseInt($("#searchInput").offset().top + 60), left: $("#searchInput").offset().left});
+}
 
 function menuPoint(container, line, action) {
     if(action === 1) {
@@ -63,5 +83,36 @@ function closeMobileMenu() {
     setTimeout(function () {
         $('.mobileMenu').css("display", "none");
         $('.mobileMenu').css("z-index", "1");
+    }, 300);
+}
+
+function siteSearch() {
+    const query = $("#searchInput").val();
+
+    if(query !== "Поиск...") {
+        if(query.length > 1) {
+            $.ajax({
+                type: "POST",
+                data: {"query": query},
+                url: "/scripts/ajaxSearch.php",
+                success: function (response) {
+                    $(".searchList").html(response);
+
+                    if($(".searchList").css("display") === "none") {
+                        $(".searchList").css("display", "block");
+                    }
+                }
+            });
+        } else {
+            hideSearch();
+        }
+    }
+}
+
+function hideSearch() {
+    $(".searchList").hide("300");
+
+    setTimeout(function () {
+        $(".searchList").html("");
     }, 300);
 }

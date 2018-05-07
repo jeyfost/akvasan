@@ -27,7 +27,14 @@ $page = $pageResult->fetch_assoc();
 
     <link href="https://fonts.googleapis.com/css?family=Istok+Web" rel="stylesheet">
 
-	<link rel="shortcut icon" href="/img/system/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/system/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/system/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/system/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/img/system/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/img/system/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
 	<link rel="stylesheet" href="/libs/font-awesome-4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="/libs/lightview/css/lightview/lightview.css" />
     <link rel="stylesheet" type="text/css" href="/libs/slick/slick.css" />
@@ -36,7 +43,6 @@ $page = $pageResult->fetch_assoc();
 	<link rel="stylesheet" href="/css/media.css" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-migrate-3.0.1.js"></script>
     <script type="text/javascript" src="/libs/lightview/js/lightview/lightview.js"></script>
     <script type="text/javascript" src="/libs/slick/slick.min.js"></script>
     <script type="text/javascript" src="/js/common.js"></script>
@@ -143,9 +149,11 @@ $page = $pageResult->fetch_assoc();
 
     <div class="innerSection" id="searchSection">
         <form method="post">
-            <input id="searchInput" name="search" class="search" placeholder="Поиск..." />
+            <input id="searchInput" name="search" placeholder="Поиск..." onkeyup="siteSearch()" onclick="siteSearch()" />
         </form>
     </div>
+
+    <div class="searchList"></div>
 
     <!-- MENU END -->
 
@@ -167,7 +175,7 @@ $page = $pageResult->fetch_assoc();
                 if($k == 0) {
                     $k = "00";
                 } else {
-                    if(strlen($k == 1)) {
+                    if(strlen($k) == 1) {
                         $k = "0".$k;
                     }
                 }
@@ -211,7 +219,7 @@ $page = $pageResult->fetch_assoc();
                     if($k == 0) {
                         $k = "00";
                     } else {
-                        if(strlen($k == 1)) {
+                        if(strlen($k) == 1) {
                             $k = "0".$k;
                         }
                     }

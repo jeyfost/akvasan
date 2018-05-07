@@ -21,6 +21,7 @@
     .mobileMenuIcon {display: inline-block;}
     .footerLeft {float: none; text-align: center; width: 100%; margin-top: 10px;}
     .footerRight {float: none; text-align: center; width: 100%; margin-top: 40px;}
+    .searchDescription {font-size: 16px;}
 }
 
 /* Extra Small Devices, Phones */
@@ -33,6 +34,7 @@
     .bottomMenu {height: auto;}
     .container25 {float: none;}
     .advantageIconContainer {margin-top: 10px;}
+    .searchDescription {font-size: 14px;}
 }
 
 /* Custom, iPhone Retina */
