@@ -25,19 +25,6 @@ if($searchResult->num_rows > 0) {
         $subcategoryResult = $mysqli->query("SELECT * FROM akvasan_subcategories WHERE id = '".$search['subcategory']."'");
         $subcategory = $subcategoryResult->fetch_assoc();
 
-        $r = intval($search['price']);
-        $k = intval(($search['price'] - $r) * 100);
-
-        if($k == 0) {
-            $k = "00";
-        } else {
-            if(strlen($k) == 1) {
-                $k = "0".$k;
-            }
-        }
-
-        $price = $r." руб. ".$k." коп.";
-
         echo "
             <div class='row'>              
                 <table class='searchTable'>
@@ -51,7 +38,7 @@ if($searchResult->num_rows > 0) {
                             <td class='searchDescription'>
                                 <a href='/catalogue/".$category['url']."/".$subcategory['url']."/".$search['url']."'>".$search['name']."</a>
                                 <br /><br />
-                                <span>".$price."</span>
+                                <span>".calculatePrice($search['price'])."</span>
                                 <br /><br />
                                 <a href='/catalogue/".$category['url']."/".$subcategory['url']."/".$search['url']."'><div class='promoButton'>Подробнее</div></a>
                             </td>

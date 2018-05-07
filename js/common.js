@@ -31,6 +31,8 @@ $(window).on("scroll", function () {
         $(".topMenu").css("z-index", "1");
         $(".topMenu").css("box-shadow", "none");
     }
+
+    scrollFunction();
 });
 
 $(document).on("mouseup", function (e) {
@@ -55,7 +57,7 @@ function initialise() {
     $("#searchInput").width(parseInt($("#searchSection").width() - 10));
 
     $(".searchList").width(parseInt($("#searchInput").width() - 10));
-    $(".searchList").offset({top: parseInt($("#searchInput").offset().top + 60), left: $("#searchInput").offset().left});
+    $(".searchList").offset({top: parseInt($("#searchInput").offset().top + 40), left: $("#searchInput").offset().left});
 }
 
 function menuPoint(container, line, action) {
@@ -115,4 +117,16 @@ function hideSearch() {
     setTimeout(function () {
         $(".searchList").html("");
     }, 300);
+}
+
+function scrollToTop() {
+    $('html, body').animate({scrollTop: 0}, 500);
+}
+
+function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        document.getElementById("scroll").style.display = "block";
+    } else {
+        document.getElementById("scroll").style.display = "none";
+    }
 }

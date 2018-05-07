@@ -1,6 +1,7 @@
 <?php
 	include('config.php');
 	include('const.php');
+	include('helpers.php');
 
 	global $mysqli;
 	
