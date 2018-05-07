@@ -48,12 +48,27 @@ $page = $pageResult->fetch_assoc();
     <script type="text/javascript" src="/js/common.js"></script>
     <script type="text/javascript" src="/js/index.js"></script>
 
+    <style>
+        #page-preloader {position: fixed; left: 0; top: 0; right: 0; bottom: 0; background: #fff; z-index: 100500;}
+        #page-preloader .spinner {width: 32px; height: 32px; position: absolute; left: 50%; top: 50%; background: url('/img/system/spinner.gif') no-repeat 50% 50%; margin: -16px 0 0 -16px;}
+    </style>
+
+    <script type="text/javascript">
+        $(window).on('load', function () {
+            const $preloader = $('#page-preloader'), $spinner = $preloader.find('.spinner');
+            $spinner.delay(500).fadeOut();
+            $preloader.delay(850).fadeOut();
+        });
+    </script>
+
     <!-- Yandex.Metrika counter --><!-- /Yandex.Metrika counter -->
     <!-- Google Analytics counter --><!-- /Google Analytics counter -->
 
 </head>
 
 <body>
+
+    <div id="page-preloader"><span class="spinner"></span></div>
 
     <!-- MENU START -->
 
