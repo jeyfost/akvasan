@@ -2,7 +2,7 @@
 
 include("scripts/connect.php");
 
-$pageResult = $mysqli->query("SELECT * FROM akvasan_pages WHERE id = '1'");
+$pageResult = $mysqli->query("SELECT * FROM akvasan_pages WHERE url = ''");
 $page = $pageResult->fetch_assoc();
 
 ?>
