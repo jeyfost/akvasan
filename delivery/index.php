@@ -3,12 +3,12 @@
  * Created by PhpStorm.
  * User: jeyfost
  * Date: 08.05.2018
- * Time: 10:16
+ * Time: 10:42
  */
 
 include("../scripts/connect.php");
 
-$pageResult = $mysqli->query("SELECT * FROM akvasan_pages WHERE url = 'warranty'");
+$pageResult = $mysqli->query("SELECT * FROM akvasan_pages WHERE url = 'delivery'");
 $page = $pageResult->fetch_assoc();
 
 ?>
@@ -76,7 +76,7 @@ $page = $pageResult->fetch_assoc();
     <div class="row" id="mobileMenuClose"><i class="fa fa-times" aria-hidden="true" onclick="closeMobileMenu()"></i></div>
     <div class="row text-center mobile">Главная</div>
     <div class="row text-center mobile"><a href="/catalogue">Каталог</a></div>
-    <div class="row text-center mobile"><a href="/delivery">Доставка и оплата</a></div>
+    <div class="row text-center mobile mobileActive"><a href="/delivery">Доставка и оплата</a></div>
     <div class="row text-center mobile"><a href="/about">О компании</a></div>
     <div class="row text-center mobile"><a href="/reviews">Отзывы</a></div>
     <div class="row text-center mobile"><a href="/contacts">Контакты</a></div>
@@ -93,8 +93,8 @@ $page = $pageResult->fetch_assoc();
             <div class="topLine" id="catalogueTopLine"></div>
             <a href="/catalogue"><div class="menuPoint" id="cataloguePoint">Каталог</div></a>
         </div>
-        <div class="menuPointContainer" id="deliveryContainer" onmouseover="menuPoint('deliveryContainer', 'deliveryTopLine', 1)" onmouseout="menuPoint('deliveryContainer', 'deliveryTopLine', 0)">
-            <div class="topLine" id="deliveryTopLine"></div>
+        <div class="menuPointContainer active" id="deliveryContainer">
+            <div class="topLine white" id="deliveryTopLine"></div>
             <a href="/delivery"><div class="menuPoint" id="deliveryPoint">Доставка и оплата</div></a>
         </div>
         <div class="menuPointContainer" id="aboutContainer" onmouseover="menuPoint('aboutContainer', 'aboutTopLine', 1)" onmouseout="menuPoint('aboutContainer', 'aboutTopLine', 0)">
@@ -173,13 +173,22 @@ $page = $pageResult->fetch_assoc();
 <!-- MENU END -->
 
 <div class="section white">
-    <div class="header"><h1>Гарантия на товар магазина Akvasan.by</h1></div>
+    <div class="header"><h1>Доставка и оплата</h1></div>
     <div class="container text-left">
         <?php
-            $textResult= $mysqli->query("SELECT text FROM akvasan_text WHERE url = 'warranty'");
+            $textResult= $mysqli->query("SELECT text FROM akvasan_text WHERE url = 'delivery'");
             $text = $textResult->fetch_array(MYSQLI_NUM);
 
-            echo "<br /><div style='font-size: 16px;'>".$text[0]."</div>";
+            echo "
+                <br />
+                <div style='font-size: 16px;'>".$text[0]."</div>
+                <br /><hr /><br />
+            ";
+
+            $textResult= $mysqli->query("SELECT text FROM akvasan_text WHERE url = 'payment'");
+            $text = $textResult->fetch_array(MYSQLI_NUM);
+
+            echo "<div style='font-size: 16px;'>".$text[0]."</div>";
         ?>
     </div>
 </div>
@@ -194,7 +203,7 @@ $page = $pageResult->fetch_assoc();
         <div class="container25" id="footerRightContainer">
             <a href="/refund">Замена и возврат товара</a>
             <br />
-            <a href="/warranty"><b>Гарантия</b></a>
+            <a href="/warranty">Гарантия</a>
             <br /><br />
             <img src="/img/system/pay-logos.png" />
             <br /><br />
@@ -205,7 +214,7 @@ $page = $pageResult->fetch_assoc();
             <br />
             <a href="/catalogue">Каталог</a>
             <br />
-            <a href="/delivery">Доставка и оплата</a>
+            <a href="/delivery"><b>Доставка и оплата</b></a>
             <br />
             <a href="/about">О компании</a>
             <br />
