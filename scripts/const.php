@@ -20,3 +20,6 @@ define("MTS_NUMBER", "777-77-77");
 define("VELCOM_NUMBER", "333-33-33");
 define("LIFE_NUMBER", "999-99-99");
 define("VIBER_NUMBER", "777-77-77");
+
+define("SHOP_LOCATION", "Республика Беларусь, г. Могилёв");
+define("SHOP_ADDRESS", "ул. Быховская, 6");

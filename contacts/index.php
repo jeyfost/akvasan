@@ -3,12 +3,12 @@
  * Created by PhpStorm.
  * User: jeyfost
  * Date: 08.05.2018
- * Time: 11:23
+ * Time: 11:41
  */
 
 include("../scripts/connect.php");
 
-$pageResult = $mysqli->query("SELECT * FROM akvasan_pages WHERE url = 'about'");
+$pageResult = $mysqli->query("SELECT * FROM akvasan_pages WHERE url = 'contacts'");
 $page = $pageResult->fetch_assoc();
 
 ?>
@@ -46,7 +46,10 @@ $page = $pageResult->fetch_assoc();
     <link rel="stylesheet" href="/css/media.css" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script type="text/javascript" src="/libs/notify/notify.js"></script>
     <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/contacts.js"></script>
 
     <style>
         #page-preloader {position: fixed; left: 0; top: 0; right: 0; bottom: 0; background: #fff; z-index: 100500;}
@@ -77,9 +80,9 @@ $page = $pageResult->fetch_assoc();
     <div class="row text-center mobile">Главная</div>
     <div class="row text-center mobile"><a href="/catalogue">Каталог</a></div>
     <div class="row text-center mobile"><a href="/delivery">Доставка и оплата</a></div>
-    <div class="row text-center mobile mobileActive"><a href="/about">О компании</a></div>
+    <div class="row text-center mobile"><a href="/about">О компании</a></div>
     <div class="row text-center mobile"><a href="/reviews">Отзывы</a></div>
-    <div class="row text-center mobile"><a href="/contacts">Контакты</a></div>
+    <div class="row text-center mobile mobileActive"><a href="/contacts">Контакты</a></div>
 </div>
 
 <div class="topMenu">
@@ -97,16 +100,16 @@ $page = $pageResult->fetch_assoc();
             <div class="topLine" id="deliveryTopLine"></div>
             <a href="/delivery"><div class="menuPoint" id="deliveryPoint">Доставка и оплата</div></a>
         </div>
-        <div class="menuPointContainer active" id="aboutContainer">
-            <div class="topLine white" id="aboutTopLine"></div>
+        <div class="menuPointContainer" id="aboutContainer" onmouseover="menuPoint('aboutContainer', 'aboutTopLine', 1)" onmouseout="menuPoint('aboutContainer', 'aboutTopLine', 0)">
+            <div class="topLine" id="aboutTopLine"></div>
             <a href="/about"><div class="menuPoint" id="aboutPoint">О компании</div></a>
         </div>
         <div class="menuPointContainer" id="reviewsContainer" onmouseover="menuPoint('reviewsContainer', 'reviewsTopLine', 1)" onmouseout="menuPoint('reviewsContainer', 'reviewsTopLine', 0)">
             <div class="topLine" id="reviewsTopLine"></div>
             <a href="/reviews"><div class="menuPoint" id="reviewsPoint">Отзывы</div></a>
         </div>
-        <div class="menuPointContainer" id="contactsContainer" onmouseover="menuPoint('contactsContainer', 'contactsTopLine', 1)" onmouseout="menuPoint('contactsContainer', 'contactsTopLine', 0)">
-            <div class="topLine" id="contactsTopLine"></div>
+        <div class="menuPointContainer active" id="contactsContainer">
+            <div class="topLine white" id="contactsTopLine"></div>
             <a href="/contacts"><div class="menuPoint" id="contactsPoint">Контакты</div></a>
         </div>
     </div>
@@ -173,15 +176,57 @@ $page = $pageResult->fetch_assoc();
 <!-- MENU END -->
 
 <div class="section white">
-    <div class="header"><h1>О компании Akvasan.by</h1></div>
+    <div class="header"><h1>Контактная информация</h1></div>
+    <br />
     <div class="container text-left">
-        <?php
-            $textResult= $mysqli->query("SELECT text FROM akvasan_text WHERE url = 'about'");
-            $text = $textResult->fetch_array(MYSQLI_NUM);
-
-            echo "<br /><div style='font-size: 16px;'>".$text[0]."</div>";
-        ?>
+        <div class="column firstColumn">
+            <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<?= SHOP_LOCATION ?>,<br /><?= SHOP_ADDRESS ?>
+        </div>
+        <div class="column text-center">
+            <i class="fa fa-mobile" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<a href="tel:<?= COUNTRY_CODE ?> (<?= VELCOM_CODE ?>) <?= VELCOM_NUMBER ?>"><?= COUNTRY_CODE ?> <?= VELCOM_CODE ?> <b><?= VELCOM_NUMBER ?></b></a>
+            <br />
+            <i class="fa fa-mobile" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<a href="tel:<?= COUNTRY_CODE ?> (<?= MTS_CODE ?>) <?= MTS_NUMBER ?>"><?= COUNTRY_CODE ?> <?= MTS_CODE ?> <b><?= MTS_NUMBER ?></b></a>
+            <br />
+            <i class="fa fa-mobile" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<a href="tel:<?= COUNTRY_CODE ?> (<?= LIFE_CODE ?>) <?= LIFE_NUMBER ?>"><?= COUNTRY_CODE ?> <?= LIFE_CODE ?> <b><?= LIFE_NUMBER ?></b></a>
+        </div>
+        <div class="column">
+            <i class="fa fa-skype" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<a href="skype:<?= SKYPE_LOGIN ?>"><?= SKYPE_LOGIN ?></a>
+            <br />
+            <i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<a href="mailto:<?= CONTACT_EMAIL ?>"><?= CONTACT_EMAIL ?></a>
+        </div>
+        <div class="clear"></div>
     </div>
+</div>
+
+<div class="section">
+    <div class="header"><h1>Напишите нам</h1></div>
+    <div class="container60">
+        <form id="contactForm" name="contactForm">
+            <label for="nameInput">Ваше имя:</label>
+            <br />
+            <input id="nameInput" name="name" />
+            <br /><br />
+            <label for="emailInput">Ваш email:</label>
+            <br />
+            <input id="emailInput" name="email" />
+            <br /><br />
+            <label for="phoneInput">Ваш номер телефона:</label>
+            <br />
+            <input id="phoneInput" name="phone" />
+            <br /><br />
+            <label for="messageInput">Текст сообщения:</label>
+            <br />
+            <textarea id="messageInput" name="message" onkeydown="textAreaHeight(this)" style="width: 95%;"></textarea>
+            <br /><br />
+            <div class="g-recaptcha" data-sitekey="6Lcb7FcUAAAAAHb0u7E_c2boSEahqckoAk5KrRmB"></div>
+            <br />
+            <center><button onclick="sendEmail()" class="button" id="messageButton">Отправить&nbsp;&nbsp;&nbsp;<i class="fa fa-share" aria-hidden="true"></i></button></center>
+        </form>
+    </div>
+</div>
+
+<div class="section white" style="padding-bottom: 20px;">
+    <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A6d498f3ad922bd93961b582ad2abcbadd59babd772e2b02d80234d0570285614&amp;width=100%25&amp;height=500&amp;lang=ru_RU&amp;scroll=false"></script>
 </div>
 
 <!-- FOOTER START -->
@@ -207,11 +252,11 @@ $page = $pageResult->fetch_assoc();
             <br />
             <a href="/delivery">Доставка и оплата</a>
             <br />
-            <a href="/about"><b>О компании</b></a>
+            <a href="/about">О компании</a>
             <br />
             <a href="/reviews">Отзывы</a>
             <br />
-            <a href="/contacts">Контакты</a>
+            <a href="/contacts"><b>Контакты</b></a>
         </div>
         <div class="container25" id="footerPhoneContainer">
             <div class="menuRow">

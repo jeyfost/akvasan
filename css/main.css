@@ -3,6 +3,7 @@
 body {margin: 0; padding: 0; background-color: #f8f8f8; font-family: "Istok Web", sans-serif; font-size: 14px;}
 a {text-decoration: none; color: #000; transition: .3s;}
 h1 {font-size: 24px; font-weight: normal;}
+label {font-family: "Istok Web", sans-serif;}
 
 a:hover, .goodContainerName a:hover, .searchDescription a:hover, .searchClose i:hover {color: #54a9fc;}
 
@@ -10,7 +11,7 @@ a:hover, .goodContainerName a:hover, .searchDescription a:hover, .searchClose i:
 
 .mobile:hover {background-color: #d5eaff;}
 .goodContainer:hover {box-shadow: 0 5px 15px -4px rgba(0, 0, 0, 0.4);}
-.promoButton:hover {background-color: #396ea2;}
+.promoButton:hover, .button:hover {background-color: #396ea2;}
 .advantageIconContainer:hover, .goodContainerPhoto img:hover, .searchPhoto img:hover, #logo:hover, #footerLogo:hover {opacity: .7;}
 .footerLink:hover {color: #396ea2;}
 
@@ -22,8 +23,11 @@ a:hover, .goodContainerName a:hover, .searchDescription a:hover, .searchClose i:
 #mobileMenuClose {text-align: right; font-size: 20px; margin: 0 auto; width: 90%;}
 #mobileMenuClose i, .searchClose i {cursor: pointer; color: #396ea2;}
 #footerInnerSection {width: 80%;}
-#searchInput {height: 30px; border: 1px solid #e0e0e0; padding-left: 10px; font-style: italic; color: #396ea2;}
+#searchInput {height: 30px; border: 1px solid #e0e0e0; padding-left: 10px; font-style: italic; color: #396ea2; margin: 0 auto;}
 #scroll {display: none; position: fixed; bottom: 20px; right: 30px; z-index: 201; cursor: pointer; color: #fff; transition: .3s; width: 50px; height: 50px; line-height: 50px; text-align: center; border-radius: 50px; background-color: #396ea2; font-size: 11px;}
+#contactForm {width: 100%;}
+#contactForm input {font-size: 14px; font-family: "Istok Web", sans-serif; width: 95%; height: 30px; padding-left: 5px; padding-right: 5px; line-height: 30px;}
+#contactForm textarea {font-size: 14px; font-family: "Montserrat", sans-serif;, width: 95%; padding: 5px; resize: none; transition: .3s;}
 
 .topMenu {width: 100%; height: 45px; background-color: #54a9fc;}
 .innerSection {width: 98%; margin: 0 auto; text-align: center;}
@@ -73,3 +77,8 @@ a:hover, .goodContainerName a:hover, .searchDescription a:hover, .searchClose i:
 .searchPhoto img {transition: .3s;}
 .searchClose {position: absolute; top: 10px; right: 10px;}
 .searchClose i {font-size: 18px; transition: .3s;}
+.column {width: 30%; margin-left: 2%; position: relative; float: left; display: table-column; text-align: center; font-size: 16px;}
+.firstColumn {margin-left: 3%;}
+.container60 {width: 60%; margin: 50px auto auto auto;}
+.button {padding-left: 10px; padding-right: 10px; height: 35px; line-height: 35px; color: #fff; background-color: #54a9fc; border: none; transition: .3s; cursor: pointer; font-size: 16px; font-family: "Istok Web", sans-serif; margin: 20px auto auto auto;}
+.g-recaptcha {width: 300px; margin: 0 auto;}
