@@ -22,8 +22,6 @@ $to = CONTACT_EMAIL;
 $reply = $email;
 $subject = "Письмо с сайта akvasan.by";
 
-$hash = md5(rand(0, 10000000).date('Y-m-d H:i:s'));
-
 $secret = "6Lcb7FcUAAAAAO3XN4dj_-gmVAHs19Lt0j9jbh7y";
 $response = null;
 $reCaptcha = new ReCaptcha($secret);

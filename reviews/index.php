@@ -2,13 +2,13 @@
 /**
  * Created by PhpStorm.
  * User: jeyfost
- * Date: 08.05.2018
- * Time: 10:16
+ * Date: 11.05.2018
+ * Time: 11:20
  */
 
 include("../scripts/connect.php");
 
-$pageResult = $mysqli->query("SELECT * FROM akvasan_pages WHERE url = 'warranty'");
+$pageResult = $mysqli->query("SELECT * FROM akvasan_pages WHERE url = 'reviews'");
 $page = $pageResult->fetch_assoc();
 
 ?>
@@ -42,11 +42,17 @@ $page = $pageResult->fetch_assoc();
     <meta name="theme-color" content="#ffffff">
 
     <link rel="stylesheet" href="/libs/font-awesome-4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/libs/remodal/dist/remodal.css" />
+    <link rel="stylesheet" href="/libs/remodal/dist/remodal-default-theme.css" />
     <link rel="stylesheet" href="/css/main.css" />
     <link rel="stylesheet" href="/css/media.css" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script type="text/javascript" src="/libs/notify/notify.js"></script>
+    <script type="text/javascript" src="/libs/remodal/dist/remodal.min.js"></script>
     <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/reviews.js"></script>
 
     <style>
         #page-preloader {position: fixed; left: 0; top: 0; right: 0; bottom: 0; background: #fff; z-index: 100500;}
@@ -78,7 +84,7 @@ $page = $pageResult->fetch_assoc();
     <div class="row text-center mobile"><a href="/catalogue">Каталог</a></div>
     <div class="row text-center mobile"><a href="/delivery">Доставка и оплата</a></div>
     <div class="row text-center mobile"><a href="/about">О компании</a></div>
-    <div class="row text-center mobile"><a href="/reviews">Отзывы</a></div>
+    <div class="row text-center mobile mobileActive"><a href="/reviews">Отзывы</a></div>
     <div class="row text-center mobile"><a href="/contacts">Контакты</a></div>
 </div>
 
@@ -101,8 +107,8 @@ $page = $pageResult->fetch_assoc();
             <div class="topLine" id="aboutTopLine"></div>
             <a href="/about"><div class="menuPoint" id="aboutPoint">О компании</div></a>
         </div>
-        <div class="menuPointContainer" id="reviewsContainer" onmouseover="menuPoint('reviewsContainer', 'reviewsTopLine', 1)" onmouseout="menuPoint('reviewsContainer', 'reviewsTopLine', 0)">
-            <div class="topLine" id="reviewsTopLine"></div>
+        <div class="menuPointContainer active" id="reviewsContainer">
+            <div class="topLine white" id="reviewsTopLine"></div>
             <a href="/reviews"><div class="menuPoint" id="reviewsPoint">Отзывы</div></a>
         </div>
         <div class="menuPointContainer" id="contactsContainer" onmouseover="menuPoint('contactsContainer', 'contactsTopLine', 1)" onmouseout="menuPoint('contactsContainer', 'contactsTopLine', 0)">
@@ -173,15 +179,73 @@ $page = $pageResult->fetch_assoc();
 <!-- MENU END -->
 
 <div class="section white ndra-container">
-    <div class="header"><h1>Гарантия на товар магазина Akvasan.by</h1></div>
+    <div class="header"><h1>Отзывы</h1></div>
+
+    <?php
+        $reviewResult = $mysqli->query("SELECT * FROM akvasan_reviews WHERE showing = '1' ORDER BY date DESC");
+        $reviewsCount = $reviewResult->num_rows;
+
+        if($reviewsCount > 0) {
+            echo "
+                <div class='row text-center'>
+                    <a data-remodal-target='modal'><input type='button' class='button' value='Оставить отзыв' /></a>
+                </div>
+            ";
+        }
+    ?>
+
     <div class="container text-left">
         <?php
-            $textResult= $mysqli->query("SELECT text FROM akvasan_text WHERE url = 'warranty'");
-            $text = $textResult->fetch_array(MYSQLI_NUM);
+            $count = 0;
 
-            echo "<br /><div style='font-size: 16px;'>".$text[0]."</div>";
+            if($reviewsCount > 0) {
+                echo "<div class='container60'>";
+
+                while($review = $reviewResult->fetch_assoc()) {
+                    $count++;
+
+                    echo "<div class='row'><b>".$review['name']."</b> ".dateToString($review['date'])."<br /><br />";
+
+                    if(!empty($review['good'])) {
+                        echo "<span class='greyItalic'><b>Приобретённый товар:</b> ".$review['good']."</span><br />";
+                    }
+
+                    echo $review['text']."</div>
+                    ";
+
+                    if($count < $reviewsCount) {
+                        echo "<br /><hr /><br />";
+                    }
+                }
+
+                echo "</div>";
+            } else {
+                echo "<div class='text-center'><br />К сожалению, на данный момент на сайте нет ни одного отзыва. Станьте первым, кто его оставит!</div>";
+            }
         ?>
     </div>
+
+    <div class="row text-center">
+        <br />
+        <a data-remodal-target="modal"><input type="button" class="button" value="Оставить отзыв" /></a>
+    </div>
+</div>
+
+<div class="remodal" data-remodal-id="modal" data-remodal-options="closeOnConfirm: false">
+    <button data-remodal-action="close" class="remodal-close"></button>
+    <div style='width: 80%; margin: 0 auto;'><h1>Пожалуйста, оставьте свой отзыв.<br />Для нас это очень важно!</h1></div>
+    <br /><br />
+    <form method="post" id="modalForm">
+        <input id="nameInput" name="name" placeholder="Имя" />
+        <br /><br />
+        <input id="emailInput" name="email" placeholder="E-mail" />
+        <br /><br />
+        <input id="goodInput" name="good" placeholder="Приобретённый товар (не обязательно)" />
+        <br /><br />
+        <textarea id="textInput" name="text" placeholder="Отзыв"></textarea>
+    </form>
+    <br />
+    <button data-remodal-action="confirm" class="remodal-confirm" style="width: 150px;" onclick="sendReview()">Оставить отзыв</button>
 </div>
 
 <!-- FOOTER START -->
@@ -194,7 +258,7 @@ $page = $pageResult->fetch_assoc();
         <div class="container25" id="footerRightContainer">
             <a href="/refund">Замена и возврат товара</a>
             <br />
-            <a href="/warranty"><b>Гарантия</b></a>
+            <a href="/warranty">Гарантия</a>
             <br /><br />
             <img src="/img/system/pay-logos.png" />
             <br /><br />
@@ -211,7 +275,7 @@ $page = $pageResult->fetch_assoc();
             <br />
             <a href="/reviews">Отзывы</a>
             <br />
-            <a href="/contacts">Контакты</a>
+            <a href="/contacts"><b>Контакты</b></a>
         </div>
         <div class="container25" id="footerPhoneContainer">
             <div class="menuRow">

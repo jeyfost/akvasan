@@ -172,7 +172,7 @@ $page = $pageResult->fetch_assoc();
 
 <!-- MENU END -->
 
-<div class="section white">
+<div class="section white ndra-container">
     <div class="header"><h1>О компании Akvasan.by</h1></div>
     <div class="container text-left">
         <?php

@@ -4,6 +4,7 @@ body {margin: 0; padding: 0; background-color: #f8f8f8; font-family: "Istok Web"
 a {text-decoration: none; color: #000; transition: .3s;}
 h1 {font-size: 24px; font-weight: normal;}
 label {font-family: "Istok Web", sans-serif;}
+hr {opacity: .3;}
 
 a:hover, .goodContainerName a:hover, .searchDescription a:hover, .searchClose i:hover {color: #54a9fc;}
 
@@ -11,7 +12,7 @@ a:hover, .goodContainerName a:hover, .searchDescription a:hover, .searchClose i:
 
 .mobile:hover {background-color: #d5eaff;}
 .goodContainer:hover {box-shadow: 0 5px 15px -4px rgba(0, 0, 0, 0.4);}
-.promoButton:hover, .button:hover {background-color: #396ea2;}
+.promoButton:hover, .button:hover, .remodal-confirm:hover {background-color: #396ea2 !important;}
 .advantageIconContainer:hover, .goodContainerPhoto img:hover, .searchPhoto img:hover, #logo:hover, #footerLogo:hover {opacity: .7;}
 .footerLink:hover {color: #396ea2;}
 
@@ -82,3 +83,10 @@ a:hover, .goodContainerName a:hover, .searchDescription a:hover, .searchClose i:
 .container60 {width: 60%; margin: 50px auto auto auto;}
 .button {padding-left: 10px; padding-right: 10px; height: 35px; line-height: 35px; color: #fff; background-color: #54a9fc; border: none; transition: .3s; cursor: pointer; font-size: 16px; font-family: "Istok Web", sans-serif; margin: 20px auto auto auto;}
 .g-recaptcha {width: 300px; margin: 0 auto;}
+.greyItalic {font-style: italic; color: #646464;}
+.remodal input {width: 80%; padding: 5px 10px; height: 30px; border: 1px solid #a9a9a9;}
+.remodal textarea {width: 80%; padding: 5px 10px; min-height: 150px; resize: none; border: 1px solid #a9a9a9;}
+.remodal h1 {text-transform: uppercase; color: #474747; font-size: 16px;}
+.remodal {font-family: "Istok Web", sans-serif;}
+.remodal-confirm {transition: .3s !important; background-color: #54a9fc !important;}
+.notifyjs-corner, .notifyjs-wrapper {z-index: 9999999 !important;}

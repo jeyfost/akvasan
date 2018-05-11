@@ -175,58 +175,60 @@ $page = $pageResult->fetch_assoc();
 
 <!-- MENU END -->
 
-<div class="section white">
-    <div class="header"><h1>Контактная информация</h1></div>
-    <br />
-    <div class="container text-left">
-        <div class="column firstColumn">
-            <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<?= SHOP_LOCATION ?>,<br /><?= SHOP_ADDRESS ?>
+<div class="ndra-container">
+    <div class="section white">
+        <div class="header"><h1>Контактная информация</h1></div>
+        <br />
+        <div class="container text-left">
+            <div class="column firstColumn">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<?= SHOP_LOCATION ?>,<br /><?= SHOP_ADDRESS ?>
+            </div>
+            <div class="column text-center">
+                <i class="fa fa-mobile" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<a href="tel:<?= COUNTRY_CODE ?> (<?= VELCOM_CODE ?>) <?= VELCOM_NUMBER ?>"><?= COUNTRY_CODE ?> <?= VELCOM_CODE ?> <b><?= VELCOM_NUMBER ?></b></a>
+                <br />
+                <i class="fa fa-mobile" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<a href="tel:<?= COUNTRY_CODE ?> (<?= MTS_CODE ?>) <?= MTS_NUMBER ?>"><?= COUNTRY_CODE ?> <?= MTS_CODE ?> <b><?= MTS_NUMBER ?></b></a>
+                <br />
+                <i class="fa fa-mobile" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<a href="tel:<?= COUNTRY_CODE ?> (<?= LIFE_CODE ?>) <?= LIFE_NUMBER ?>"><?= COUNTRY_CODE ?> <?= LIFE_CODE ?> <b><?= LIFE_NUMBER ?></b></a>
+            </div>
+            <div class="column">
+                <i class="fa fa-skype" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<a href="skype:<?= SKYPE_LOGIN ?>"><?= SKYPE_LOGIN ?></a>
+                <br />
+                <i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<a href="mailto:<?= CONTACT_EMAIL ?>"><?= CONTACT_EMAIL ?></a>
+            </div>
+            <div class="clear"></div>
         </div>
-        <div class="column text-center">
-            <i class="fa fa-mobile" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<a href="tel:<?= COUNTRY_CODE ?> (<?= VELCOM_CODE ?>) <?= VELCOM_NUMBER ?>"><?= COUNTRY_CODE ?> <?= VELCOM_CODE ?> <b><?= VELCOM_NUMBER ?></b></a>
-            <br />
-            <i class="fa fa-mobile" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<a href="tel:<?= COUNTRY_CODE ?> (<?= MTS_CODE ?>) <?= MTS_NUMBER ?>"><?= COUNTRY_CODE ?> <?= MTS_CODE ?> <b><?= MTS_NUMBER ?></b></a>
-            <br />
-            <i class="fa fa-mobile" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<a href="tel:<?= COUNTRY_CODE ?> (<?= LIFE_CODE ?>) <?= LIFE_NUMBER ?>"><?= COUNTRY_CODE ?> <?= LIFE_CODE ?> <b><?= LIFE_NUMBER ?></b></a>
-        </div>
-        <div class="column">
-            <i class="fa fa-skype" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<a href="skype:<?= SKYPE_LOGIN ?>"><?= SKYPE_LOGIN ?></a>
-            <br />
-            <i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<a href="mailto:<?= CONTACT_EMAIL ?>"><?= CONTACT_EMAIL ?></a>
-        </div>
-        <div class="clear"></div>
     </div>
-</div>
 
-<div class="section">
-    <div class="header"><h1>Напишите нам</h1></div>
-    <div class="container60">
-        <form id="contactForm" name="contactForm">
-            <label for="nameInput">Ваше имя:</label>
-            <br />
-            <input id="nameInput" name="name" />
-            <br /><br />
-            <label for="emailInput">Ваш email:</label>
-            <br />
-            <input id="emailInput" name="email" />
-            <br /><br />
-            <label for="phoneInput">Ваш номер телефона:</label>
-            <br />
-            <input id="phoneInput" name="phone" />
-            <br /><br />
-            <label for="messageInput">Текст сообщения:</label>
-            <br />
-            <textarea id="messageInput" name="message" onkeydown="textAreaHeight(this)" style="width: 95%;"></textarea>
-            <br /><br />
-            <div class="g-recaptcha" data-sitekey="6Lcb7FcUAAAAAHb0u7E_c2boSEahqckoAk5KrRmB"></div>
-            <br />
-            <center><button onclick="sendEmail()" class="button" id="messageButton">Отправить&nbsp;&nbsp;&nbsp;<i class="fa fa-share" aria-hidden="true"></i></button></center>
-        </form>
+    <div class="section">
+        <div class="header"><h1>Напишите нам</h1></div>
+        <div class="container60">
+            <form id="contactForm" name="contactForm">
+                <label for="nameInput">Ваше имя:</label>
+                <br />
+                <input id="nameInput" name="name" />
+                <br /><br />
+                <label for="emailInput">Ваш email:</label>
+                <br />
+                <input id="emailInput" name="email" />
+                <br /><br />
+                <label for="phoneInput">Ваш номер телефона:</label>
+                <br />
+                <input id="phoneInput" name="phone" />
+                <br /><br />
+                <label for="messageInput">Текст сообщения:</label>
+                <br />
+                <textarea id="messageInput" name="message" onkeydown="textAreaHeight(this)" style="width: 95%;"></textarea>
+                <br /><br />
+                <div class="g-recaptcha" data-sitekey="6Lcb7FcUAAAAAHb0u7E_c2boSEahqckoAk5KrRmB"></div>
+                <br />
+                <center><button onclick="sendEmail()" class="button" id="messageButton">Отправить&nbsp;&nbsp;&nbsp;<i class="fa fa-share" aria-hidden="true"></i></button></center>
+            </form>
+        </div>
     </div>
-</div>
 
-<div class="section white" style="padding-bottom: 20px;">
-    <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A6d498f3ad922bd93961b582ad2abcbadd59babd772e2b02d80234d0570285614&amp;width=100%25&amp;height=500&amp;lang=ru_RU&amp;scroll=false"></script>
+    <div class="section white" style="padding-bottom: 20px;">
+        <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A6d498f3ad922bd93961b582ad2abcbadd59babd772e2b02d80234d0570285614&amp;width=100%25&amp;height=500&amp;lang=ru_RU&amp;scroll=false"></script>
+    </div>
 </div>
 
 <!-- FOOTER START -->

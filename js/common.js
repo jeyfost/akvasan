@@ -130,3 +130,30 @@ function scrollFunction() {
         $("#scroll").fadeOut(200);
     }
 }
+
+$(function() {
+    $("body").css({padding:0,margin:0});
+
+    const f = function() {
+        $(".ndra-container").css({position:"relative"});
+
+        const h1 = $("body").height();
+        const h2 = $(window).height();
+        const d = h2 - h1;
+        const ruler = $("<div>").appendTo(".ndra-container");
+
+        let h = $(".ndra-container").height() + d;
+
+        h = Math.max(ruler.position().top, h);
+
+        ruler.remove();
+
+        $(".ndra-container").height(h);
+    };
+
+    setInterval(f, 1000);
+
+    $(window).resize(f);
+
+    f();
+});
