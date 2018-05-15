@@ -448,7 +448,7 @@ $page = $pageResult->fetch_assoc();
                                 $catalogueResult = $mysqli->query("SELECT * FROM akvasan_catalogue WHERE category = '".$category['id']."' ORDER BY name LIMIT ".$start.", ".GOODS_ON_PAGE);
                                 break;
                             case "subcategory":
-                                $catalogueResult = $mysqli->query("SELECT * FROM akvasan_catalogue WHERE subcategory = '".$category['id']."' ORDER BY name LIMIT ".$start.", ".GOODS_ON_PAGE);
+                                $catalogueResult = $mysqli->query("SELECT * FROM akvasan_catalogue WHERE subcategory = '".$subcategory['id']."' ORDER BY name LIMIT ".$start.", ".GOODS_ON_PAGE);
                                 break;
                             case "good":
                                 $catalogueResult = $mysqli->query("SELECT * FROM akvasan_catalogue WHERE id = '".$good['id']."'");
@@ -463,27 +463,31 @@ $page = $pageResult->fetch_assoc();
                             $catalogue = $catalogueResult->fetch_assoc();
                         } else {
                             //Режим отображения каталога
-                            while($catalogue = $catalogueResult->fetch_assoc()) {
-                                $goodCategoryResult = $mysqli->query("SELECT * FROM akvasan_categories WHERE id = '".$catalogue['category']."'");
-                                $goodCategory = $goodCategoryResult->fetch_assoc();
+                            if($catalogueResult->num_rows > 0) {
+                                while($catalogue = $catalogueResult->fetch_assoc()) {
+                                    $goodCategoryResult = $mysqli->query("SELECT * FROM akvasan_categories WHERE id = '".$catalogue['category']."'");
+                                    $goodCategory = $goodCategoryResult->fetch_assoc();
 
-                                $goodSubcategory = $mysqli->query("SELECT * FROM akvasan_subcategories WHERE id = '".$catalogue['subcategory']."'");
-                                $goodSubcategory = $goodSubcategory->fetch_assoc();
+                                    $goodSubcategory = $mysqli->query("SELECT * FROM akvasan_subcategories WHERE id = '".$catalogue['subcategory']."'");
+                                    $goodSubcategory = $goodSubcategory->fetch_assoc();
 
-                                echo "
-                                    <div class='goodContainer'>
-                                        <div class='goodContainerPhoto'>
-                                            <a href='/img/catalogue/big/".$catalogue['photo']."' class='lightview' data-lightview-options='skin: \"light\"'><img src='/img/catalogue/preview/".$catalogue['preview']."' /></a>
+                                    echo "
+                                        <div class='goodContainer'>
+                                            <div class='goodContainerPhoto'>
+                                                <a href='/img/catalogue/big/".$catalogue['photo']."' class='lightview' data-lightview-options='skin: \"light\"'><img src='/img/catalogue/preview/".$catalogue['preview']."' /></a>
+                                            </div>
+                                            <div class='goodContainerDescription'>
+                                                <div class='goodContainerName'><a href='/catalogue/".$goodCategory['url']."/".$goodSubcategory['url']."/".$catalogue['url']."'>".$catalogue['name']."</a></div>
+                                                <br />
+                                                <div class='goodContainerPrice'>".calculatePrice($catalogue['price'])."</div>
+                                                <br />
+                                                <a href='/catalogue/".$goodCategory['url']."/".$goodSubcategory['url']."/".$catalogue['url']."'><div class='promoButton'>Подробнее</div></a>
+                                            </div>
                                         </div>
-                                        <div class='goodContainerDescription'>
-                                            <div class='goodContainerName'><a href='/catalogue/".$goodCategory['url']."/".$goodSubcategory['url']."/".$catalogue['url']."'>".$catalogue['name']."</a></div>
-                                            <br />
-                                            <div class='goodContainerPrice'>".calculatePrice($catalogue['price'])."</div>
-                                            <br />
-                                            <a href='/catalogue/".$goodCategory['url']."/".$goodSubcategory['url']."/".$catalogue['url']."'><div class='promoButton'>Подробнее</div></a>
-                                        </div>
-                                    </div>
-                                ";
+                                    ";
+                                }
+                            } else {
+                                echo "К сожалению, в этом разделе пока нет товаров, но скоро мы их добавим.";
                             }
                         }
                     ?>
@@ -508,7 +512,11 @@ $page = $pageResult->fetch_assoc();
                         if(is_numeric($url[count($url) - 1])) {
                             $count = count($url) - 1;
                         } else {
-                            $count = count($url);
+                            if(count($url) > 1 and !empty($url[1])) {
+                                $count = count($url);
+                            } else {
+                                $count = 1;
+                            }
                         }
 
                         for($i = 0; $i < $count; $i++) {
