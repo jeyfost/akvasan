@@ -23,3 +23,5 @@ define("VIBER_NUMBER", "777-77-77");
 
 define("SHOP_LOCATION", "Республика Беларусь, г. Могилёв");
 define("SHOP_ADDRESS", "ул. Быховская, 6");
+
+define("GOODS_ON_PAGE", 10);

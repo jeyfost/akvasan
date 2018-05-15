@@ -48,7 +48,6 @@ $page = $pageResult->fetch_assoc();
     <link rel="stylesheet" href="/css/media.css" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src='https://www.google.com/recaptcha/api.js'></script>
     <script type="text/javascript" src="/libs/notify/notify.js"></script>
     <script type="text/javascript" src="/libs/remodal/dist/remodal.min.js"></script>
     <script type="text/javascript" src="/js/common.js"></script>
@@ -273,9 +272,9 @@ $page = $pageResult->fetch_assoc();
             <br />
             <a href="/about">О компании</a>
             <br />
-            <a href="/reviews">Отзывы</a>
+            <a href="/reviews"><b>Отзывы</b></a>
             <br />
-            <a href="/contacts"><b>Контакты</b></a>
+            <a href="/contacts">Контакты</a>
         </div>
         <div class="container25" id="footerPhoneContainer">
             <div class="menuRow">
