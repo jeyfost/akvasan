@@ -216,19 +216,6 @@ $page = $pageResult->fetch_assoc();
                         $subcategoryResult = $mysqli->query("SELECT * FROM akvasan_subcategories WHERE id = '".$good['subcategory']."'");
                         $subcategory = $subcategoryResult->fetch_assoc();
 
-                        $r = intval($good['price']);
-                        $k = intval(($good['price'] - $r) * 100);
-
-                        if($k == 0) {
-                            $k = "00";
-                        } else {
-                            if(strlen($k) == 1) {
-                                $k = "0".$k;
-                            }
-                        }
-
-                        $price = $r." руб. ".$k." коп.";
-
                         echo "
                                 <div class='goodContainer'>
                                     <div class='goodContainerPhoto'>
@@ -237,7 +224,7 @@ $page = $pageResult->fetch_assoc();
                                     <div class='goodContainerDescription'>
                                         <div class='goodContainerName'><a href='/catalogue/".$category['url']."/".$subcategory['url']."/".$good['url']."'>".$good['name']."</a></div>
                                         <br />
-                                        <div class='goodContainerPrice'>".$price."</div>
+                                        <div class='goodContainerPrice'>".calculatePrice($good['price'])."</div>
                                         <br />
                                         <a href='/catalogue/".$category['url']."/".$subcategory['url']."/".$good['url']."'><div class='promoButton'>Подробнее</div></a>
                                     </div>

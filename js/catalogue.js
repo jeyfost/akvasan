@@ -9,3 +9,13 @@ function catalogueMenu(action, id, text) {
         }
     }
 }
+
+function pageBlock(action, block, text) {
+    if(action === 1) {
+        document.getElementById(block).style.backgroundColor = "#54a9fc";
+        document.getElementById(text).style.color = "#fff";
+    } else {
+        document.getElementById(block).style.backgroundColor = "transparent";
+        document.getElementById(text).style.color = "#000";
+    }
+}

@@ -209,10 +209,12 @@ $page = $pageResult->fetch_assoc();
     <meta name="theme-color" content="#ffffff">
 
     <link rel="stylesheet" href="/libs/font-awesome-4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/libs/lightview/css/lightview/lightview.css" />
     <link rel="stylesheet" href="/css/main.css" />
     <link rel="stylesheet" href="/css/media.css" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/libs/lightview/js/lightview/lightview.js"></script>
     <script type="text/javascript" src="/js/common.js"></script>
     <script type="text/javascript" src="/js/catalogue.js"></script>
 
@@ -436,23 +438,23 @@ $page = $pageResult->fetch_assoc();
                     </h1>
                 </div>
 
-                <div class="row">
+                <div class="row text-center">
                     <?php
                         switch($type) {
                             case "catalogue":
-                                $catalogueResult = $mysqli->query("SELECT * FROM akvasan_catalogue ORDER BY name");
+                                $catalogueResult = $mysqli->query("SELECT * FROM akvasan_catalogue ORDER BY name LIMIT ".$start.", ".GOODS_ON_PAGE);
                                 break;
                             case "category":
-                                $catalogueResult = $mysqli->query("SELECT * FROM akvasan_catalogue WHERE category = '".$category['id']."' ORDER BY name");
+                                $catalogueResult = $mysqli->query("SELECT * FROM akvasan_catalogue WHERE category = '".$category['id']."' ORDER BY name LIMIT ".$start.", ".GOODS_ON_PAGE);
                                 break;
                             case "subcategory":
-                                $catalogueResult = $mysqli->query("SELECT * FROM akvasan_catalogue WHERE subcategory = '".$category['id']."' ORDER BY name");
+                                $catalogueResult = $mysqli->query("SELECT * FROM akvasan_catalogue WHERE subcategory = '".$category['id']."' ORDER BY name LIMIT ".$start.", ".GOODS_ON_PAGE);
                                 break;
                             case "good":
                                 $catalogueResult = $mysqli->query("SELECT * FROM akvasan_catalogue WHERE id = '".$good['id']."'");
                                 break;
                             default:
-                                $catalogueResult = $mysqli->query("SELECT * FROM akvasan_catalogue ORDER BY name");
+                                $catalogueResult = $mysqli->query("SELECT * FROM akvasan_catalogue ORDER BY name LIMIT ".$start.", ".GOODS_ON_PAGE);
                                 break;
                         }
 
@@ -462,15 +464,173 @@ $page = $pageResult->fetch_assoc();
                         } else {
                             //Режим отображения каталога
                             while($catalogue = $catalogueResult->fetch_assoc()) {
+                                $goodCategoryResult = $mysqli->query("SELECT * FROM akvasan_categories WHERE id = '".$catalogue['category']."'");
+                                $goodCategory = $goodCategoryResult->fetch_assoc();
 
+                                $goodSubcategory = $mysqli->query("SELECT * FROM akvasan_subcategories WHERE id = '".$catalogue['subcategory']."'");
+                                $goodSubcategory = $goodSubcategory->fetch_assoc();
+
+                                echo "
+                                    <div class='goodContainer'>
+                                        <div class='goodContainerPhoto'>
+                                            <a href='/img/catalogue/big/".$catalogue['photo']."' class='lightview' data-lightview-options='skin: \"light\"'><img src='/img/catalogue/preview/".$catalogue['preview']."' /></a>
+                                        </div>
+                                        <div class='goodContainerDescription'>
+                                            <div class='goodContainerName'><a href='/catalogue/".$goodCategory['url']."/".$goodSubcategory['url']."/".$catalogue['url']."'>".$catalogue['name']."</a></div>
+                                            <br />
+                                            <div class='goodContainerPrice'>".calculatePrice($catalogue['price'])."</div>
+                                            <br />
+                                            <a href='/catalogue/".$goodCategory['url']."/".$goodSubcategory['url']."/".$catalogue['url']."'><div class='promoButton'>Подробнее</div></a>
+                                        </div>
+                                    </div>
+                                ";
                             }
                         }
                     ?>
                 </div>
+
+                <!-- PLACE PAGINATION HERE -->
+                <?php
+                    echo "<div class='text-center' style='width: 100%;'>";
+                    echo "<div id='pageNumbers'>";
+
+                    if($numbers > 1) {
+                        if(is_numeric($url[count($url) - 1])) {
+                            $uri = $url[count($url) - 1];
+                        }
+
+                        if(empty($uri)) {
+                            $uri = 1;
+                        }
+
+                        $link = "/";
+
+                        if(is_numeric($url[count($url) - 1])) {
+                            $count = count($url) - 1;
+                        } else {
+                            $count = count($url);
+                        }
+
+                        for($i = 0; $i < $count; $i++) {
+                            $link .= $url[$i]."/";
+                        }
+
+                        if($numbers <= 7) {
+                            echo "<br /><br />";
+
+                            if($uri == 1) {
+                                echo "<div class='pageNumberBlockSide' id='pbPrev' style='cursor: url(/img/cursor/no.cur), auto;'><span class='paginationInactive'>Предыдущая</span></div>";
+                            } else {
+                                echo "<a href='".$link.($uri - 1)."'><div class='pageNumberBlockSide' id='pbPrev' onmouseover='pageBlock(1, \"pbPrev\", \"pbtPrev\")' onmouseout='pageBlock(0, \"pbPrev\", \"pbtPrev\")'><span class='paginationLink' id='pbtPrev'>Предыдущая</span></div></a>";
+                            }
+
+                            for($i = 1; $i <= $numbers; $i++) {
+                                if($uri != $i) {
+                                    echo "<a href='".$link.$i."'>";
+                                }
+
+                                echo "<div id='pb".$i."' "; if($i == $uri) {echo "class='pageNumberBlockActive'";} else {echo "class='pageNumberBlock' onmouseover='pageBlock(1, \"pb".$i."\", \"pbt".$i."\")' onmouseout='pageBlock(0, \"pb".$i."\", \"pbt".$i."\")'";} echo "><span "; if($i == $uri) {echo "class='paginationActive'";} else {echo "class='paginationLink' id='pbt".$i."'";} echo ">".$i."</span></div>";
+
+                                if($uri != $i) {
+                                    echo "</a>";
+                                }
+                            }
+
+                            if($uri == $numbers) {
+                                echo "<div class='pageNumberBlockSide' id='pbNext' style='cursor: url(/img/cursor/no.cur), auto;'><span class='paginationInactive'>Следующая</span></div>";
+                            } else {
+                                echo "<a href='".$link.($uri + 1)."'><div class='pageNumberBlockSide' id='pbNext' onmouseover='pageBlock(1, \"pbNext\", \"pbtNext\")' onmouseout='pageBlock(0, \"pbNext\", \"pbtNext\")'><span class='paginationLink' id='pbtNext'>Следующая</span></div></a>";
+                            }
+
+                            echo "</div>";
+
+                        } else {
+                            if($uri < 5) {
+                                if($uri == 1) {
+                                    echo "<div class='pageNumberBlockSide' id='pbPrev' style='cursor: url(/img/cursor/no.cur), auto;'><span class='paginationInactive'>Предыдущая</span></div>";
+                                } else {
+                                    echo "<a href='".$link.($uri - 1)."'><div class='pageNumberBlockSide' id='pbPrev' onmouseover='pageBlock(1, \"pbPrev\", \"pbtPrev\")' onmouseout='pageBlock(0, \"pbPrev\", \"pbtPrev\")'><span class='paginationLink' id='pbtPrev'>Предыдущая</span></div></a>";
+                                }
+
+                                for($i = 1; $i <= 5; $i++) {
+                                    if($uri != $i) {
+                                        echo "<a href='".$link.$i."'>";
+                                    }
+
+                                    echo "<div id='pb".$i."' "; if($i == $uri) {echo "class='pageNumberBlockActive'";} else {echo "class='pageNumberBlock' onmouseover='pageBlock(1, \"pb".$i."\", \"pbt".$i."\")' onmouseout='pageBlock(0, \"pb".$i."\", \"pbt".$i."\")'";} echo "><span "; if($i == $uri) {echo "class='paginationActive'";} else {echo "class='paginationLink' id='pbt".$i."'";} echo ">".$i."</span></div>";
+
+                                    if($uri != $i) {
+                                        echo "</a>";
+                                    }
+                                }
+
+                                echo "<div class='pageNumberBlock' style='cursor: url(/img/cursor/no.cur), auto;'><span class='paginationInactive'>...</span></div>";
+                                echo "<a href='".$link.$numbers."'><div id='pb".$numbers."' class='pageNumberBlock' onmouseover='pageBlock(1, \"pb".$numbers."\", \"pbt".$numbers."\")' onmouseout='pageBlock(0, \"pb".$numbers."\", \"pbt".$numbers."\")'><span class='paginationLink' id='pbt".$numbers."'>".$numbers."</span></div></a>";
+
+                                if($uri == $numbers) {
+                                    echo "<div class='pageNumberBlockSide' id='pbNext' style='cursor: url(/img/cursor/no.cur), auto;'><span class='paginationInactive'>Следующая</span></div>";
+                                } else {
+                                    echo "<a href='".$link.($uri + 1)."'><div class='pageNumberBlockSide' id='pbNext' onmouseover='pageBlock(1, \"pbNext\", \"pbtNext\")' onmouseout='pageBlock(0, \"pbNext\", \"pbtNext\")'><span class='paginationLink' id='pbtNext'>Следующая</span></div></a>";
+                                }
+
+                                echo "</div>";
+                            } else {
+                                $check = $numbers - 3;
+
+                                if($uri >= 5 and $uri < $check) {
+                                    echo "
+                                                <br /><br />
+                                                <div id='pageNumbers'>
+                                                    <a href='".$link.($uri - 1)."'><div class='pageNumberBlockSide' id='pbPrev' onmouseover='pageBlock(1, \"pbPrev\", \"pbtPrev\")' onmouseout='pageBlock(0, \"pbPrev\", \"pbtPrev\")'><span class='paginationLink' id='pbtPrev'>Предыдущая</span></div></a>
+                                                    <a href='".$link."1'><div id='pb1' class='pageNumberBlock' onmouseover='pageBlock(1, \"pb1\", \"pbt1\")' onmouseout='pageBlock(0, \"pb1\", \"pbt1\")'><span class='paginationLink' id='pbt1'>1</span></div></a>
+                                                    <div class='pageNumberBlock' style='cursor: url(/img/cursor/no.cur), auto;'><span class='paginationInactive'>...</span></div>
+                                                    <a href='".$link.($uri - 1)."'><div id='pb".($uri - 1)."' class='pageNumberBlock' onmouseover='pageBlock(1, \"pb".($uri - 1)."\", \"pbt".($uri - 1)."\")' onmouseout='pageBlock(0, \"pb".($uri - 1)."\", \"pbt".($uri - 1)."\")'><span class='paginationLink' id='pbt".($uri - 1)."'>".($uri - 1)."</span></div></a>
+                                                    <div class='pageNumberBlockActive'><span class='paginationActive'>".$uri."</span></div>
+                                                    <a href='".$link.($uri + 1)."'><div id='pb".($uri + 1)."' class='pageNumberBlock' onmouseover='pageBlock(1, \"pb".($uri + 1)."\", \"pbt".($uri + 1)."\")' onmouseout='pageBlock(0, \"pb".($uri + 1)."\", \"pbt".($uri + 1)."\")'><span class='paginationLink' id='pbt".($uri + 1)."'>".($uri + 1)."</span></div></a>
+                                                    <div class='pageNumberBlock' style='cursor: url(/img/cursor/no.cur), auto;'><span class='paginationInactive'>...</span></div>
+                                                    <a href='".$link.$numbers."'><div id='pb".$numbers."' class='pageNumberBlock' onmouseover='pageBlock(1, \"pb".$numbers."\", \"pbt".$numbers."\")' onmouseout='pageBlock(0, \"pb".$numbers."\", \"pbt".$numbers."\")'><span class='paginationLink' id='pbt".$numbers."'>".$numbers."</span></div></a>
+                                                    <a href='".$link.($uri + 1)."'><div class='pageNumberBlockSide' id='pbNext' onmouseover='pageBlock(1, \"pbNext\", \"pbtNext\")' onmouseout='pageBlock(0, \"pbNext\", \"pbtNext\")'><span class='paginationLink' id='pbtNext'>Следующая</span></div></a>
+                                                </div>
+                                            ";
+                                } else {
+                                    echo "
+                                                <br /><br />
+                                                <div id='pageNumbers'>
+                                                    <a href='".$link.($uri - 1)."'><div class='pageNumberBlockSide' id='pbPrev' onmouseover='pageBlock(1, \"pbPrev\", \"pbtPrev\")' onmouseout='pageBlock(0, \"pbPrev\", \"pbtPrev\")'><span class='paginationLink' id='pbtPrev'>Предыдущая</span></div></a>
+                                                    <a href='".$link."1'><div id='pb1' class='pageNumberBlock' onmouseover='pageBlock(1, \"pb1\", \"pbt1\")' onmouseout='pageBlock(0, \"pb1\", \"pbt1\")'><span class='paginationLink' id='pbt1'>1</span></div></a>
+                                                    <div class='pageNumberBlock' style='cursor: url(/img/cursor/no.cur), auto;'><span class='paginationInactive'>...</span></div>
+                                            ";
+
+                                    for($i = ($numbers - 4); $i <= $numbers; $i++) {
+                                        if($uri != $i) {
+                                            echo "<a href='".$link.$i."'>";
+                                        }
+
+                                        echo "<div id='pb".$i."' "; if($i == $uri) {echo "class='pageNumberBlockActive'";} else {echo "class='pageNumberBlock' onmouseover='pageBlock(1, \"pb".$i."\", \"pbt".$i."\")' onmouseout='pageBlock(0, \"pb".$i."\", \"pbt".$i."\")'";} echo "><span "; if($i == $uri) {echo "class='paginationActive'";} else {echo "class='paginationLink' id='pbt".$i."'";} echo ">".$i."</span></div>";
+
+                                        if($uri != $i) {
+                                            echo "</a>";
+                                        }
+                                    }
+
+                                    if($uri == $numbers) {
+                                        echo "<div class='pageNumberBlockSide' id='pbNext' style='cursor: url(/img/cursor/no.cur), auto;'><span class='paginationInactive'>Следующая</span></div>";
+                                    } else {
+                                        echo "<a href='".$link.($uri + 1)."'><div class='pageNumberBlockSide' id='pbNext' onmouseover='pageBlock(1, \"pbNext\", \"pbtNext\")' onmouseout='pageBlock(0, \"pbNext\", \"pbtNext\")'><span class='paginationLink' id='pbtNext'>Следующая</span></div></a>";
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    echo "</div><div class='clear'></div>";
+                    echo "</div>";
+                ?>
+
+                <!-- PAGINATION END -->
+
             </div>
             <div class="clear"></div>
-
-            <!-- PLACE PAGINATION HERE -->
         </div>
     </div>
 </div>

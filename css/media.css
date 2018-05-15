@@ -23,6 +23,8 @@
     .footerRight {float: none; text-align: center; width: 100%; margin-top: 40px;}
     .searchDescription {font-size: 16px;}
     .column {width: 100%; margin-top: 20px;}
+    .catalogueMenu {width: 100%; float: none;}
+    .catalogueContent {width: 100%; float: none; margin-top: 20px;}
 }
 
 /* Extra Small Devices, Phones */
