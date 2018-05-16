@@ -41,3 +41,13 @@ function buttonHoverRed(id, action) {
         document.getElementById(id).style.color = "#4c4c4c";
     }
 }
+
+function exit() {
+    $.ajax({
+        type: "POST",
+        url: "/scripts/admin/ajaxExit.php",
+        success: function () {
+            window.location.href = "../";
+        }
+    });
+}
