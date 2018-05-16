@@ -461,6 +461,82 @@ $page = $pageResult->fetch_assoc();
                         if($type == "good") {
                             //Режим отображения товара
                             $catalogue = $catalogueResult->fetch_assoc();
+
+                            echo "
+                                <div class='goodDataRow'>
+                                    <div class='goodDataContainer'>
+                                        <span>Наименование: </span>
+                                        <span class='goodDataFont'>".$catalogue['name']."</span>
+                                    </div>
+                                    <div class='goodDataContainer'>
+                                        <span>Артикул: </span>
+                                        <span class='goodDataFont'>".$catalogue['code']."</span>
+                                    </div>
+                                    <div class='clear'></div>
+                                </div>
+                                <br />
+                                <div class='row'>
+                                    <div class='goodPhoto'>
+                                        <a href='/img/catalogue/big/".$catalogue['photo']."' class='lightview' data-lightview-options='skin: \"light\"' data-lightview-group='good'><img src='/img/catalogue/big/".$catalogue['photo']."' /></a>
+                            ";
+
+                            $goodAdditionalPhotoResult = $mysqli->query("SELECT * FROM akvasan_photos WHERE good_id = '".$catalogue['id']."'");
+
+                            if($goodAdditionalPhotoResult->num_rows > 0) {
+                                while($goodAdditionalPhoto = $goodAdditionalPhotoResult->fetch_assoc()) {
+                                    echo "
+                                        <div class='goodAdditionalPhoto'>
+                                            <a href='/img/catalogue/all/".$goodAdditionalPhoto['photo']."' class='lightview' data-lightview-options='skin: \"light\"' data-lightview-group='good'><img src='/img/catalogue/all/".$goodAdditionalPhoto['photo']."' /></a>
+                                        </div>
+                                    ";
+                                }
+                            }
+
+                            echo "
+                                    </div>
+                                    <div class='goodProperties'>
+                                        <div class='text-left'>
+                                            <table class='propertiesTable'>
+                                                <thead>
+                                                    <tr class='text-center'>
+                                                        <td colspan='2' style='font-size: 20px;'>Характеристики</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                            ";
+
+                            $goodPropertyResult = $mysqli->query("SELECT * FROM akvasan_good_properties WHERE good_id = '".$catalogue['id']."'");
+                            while($goodProperty = $goodPropertyResult->fetch_assoc()) {
+                                $propertyResult = $mysqli->query("SELECT * FROM akvasan_properties WHERE id = '".$goodProperty['property_id']."'");
+                                $property = $propertyResult->fetch_assoc();
+
+                                echo "
+                                    <tr>
+                                        <td>".$property['name']."</td>
+                                        <td>".$goodProperty['value']."</td>
+                                    </tr>
+                                ";
+                            }
+
+                            echo "
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <br />
+                                        <span class='goodPrice'>Стоимость: <span class='goodDataFont'>".calculatePrice($catalogue['price'])."</span></span>
+                                    </div>
+                                    <div class='clear'></div>
+                                </div>
+                                <br /><br />
+                            ";
+
+                            echo "
+                                <div class='row text-left'>
+                                    <span style='font-size: 24px;'>Краткое описание:</span>
+                                    <br />
+                                    ".$catalogue['description']."
+                                </div>
+                            ";
                         } else {
                             //Режим отображения каталога
                             if($catalogueResult->num_rows > 0) {
@@ -487,7 +563,7 @@ $page = $pageResult->fetch_assoc();
                                     ";
                                 }
                             } else {
-                                echo "К сожалению, в этом разделе пока нет товаров, но скоро мы их добавим.";
+                                echo "К сожалению, в этом разделе пока нет товаров, но мы скоро их добавим.";
                             }
                         }
                     ?>

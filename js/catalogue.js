@@ -1,3 +1,24 @@
+$(window).on("load", function() {
+    tableResize();
+});
+
+$(window).on("resize", function () {
+    tableResize();
+});
+
+function tableResize() {
+    if($("table").is(".propertiesTable")) {
+        if($(window).width() >= 1200) {
+            $(".propertiesTable").width(parseInt($(".catalogueContent").width() - $('.goodPhoto').width() - 20));
+        } else {
+            $(".goodProperties").css("float", "none");
+            $(".goodProperties").css("margin-top", "20px");
+            $(".goodProperties").css("width", "100%");
+            $(".propertiesTable").css("width", "100%");
+        }
+    }
+}
+
 function catalogueMenu(action, id, text) {
     if($("#" + id).attr("class") !== "tdActive") {
         if(action === 1) {

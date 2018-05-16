@@ -12,9 +12,9 @@ a:hover, .goodContainerName a:hover, .searchDescription a:hover, .searchClose i:
 #scroll:hover {background-color: #2c577f;}
 
 .mobile:hover {background-color: #d5eaff;}
-.goodContainer:hover {box-shadow: 0 5px 15px -4px rgba(0, 0, 0, 0.4);}
+.goodContainer:hover, .goodAdditionalPhoto:hover {box-shadow: 0 5px 15px -4px rgba(0, 0, 0, 0.4);}
 .promoButton:hover, .button:hover, .remodal-confirm:hover {background-color: #396ea2 !important;}
-.advantageIconContainer:hover, .goodContainerPhoto img:hover, .searchPhoto img:hover, #logo:hover, #footerLogo:hover {opacity: .7;}
+.advantageIconContainer:hover, .goodContainerPhoto img:hover, .searchPhoto img:hover, .goodAdditionalPhoto img:hover, .goodPhoto img:hover, #logo:hover, #footerLogo:hover {opacity: .7;}
 .footerLink:hover, .breadcrumbs a:hover {color: #396ea2;}
 
 #logo, #footerLogo {min-width: 250px; transition: .3s;}
@@ -107,3 +107,14 @@ a:hover, .goodContainerName a:hover, .searchDescription a:hover, .searchClose i:
 .paginationInactive {color: #191919;}
 .paginationActive {color: #fff;}
 .paginationLink {color: #000;}
+.goodDataRow {width: 100%; border: 1px solid #e0e0e0; padding-top: 8px; padding-bottom: 8px;}
+.goodDataFont {color: #54a9fc;}
+.goodDataContainer {float: left; margin-left: 20px;}
+.goodPhoto {float: left; width: 450px;}
+.goodPhoto img {width: 100%;}
+.goodProperties {float: left; margin-left: 20px;}
+.goodPrice {font-size: 30px; color: #333;}
+.propertiesTable {border-collapse: collapse;}
+.propertiesTable td {padding-left: 5px; padding-right:5px; padding-top: 10px; padding-bottom: 10px; border: 1px solid #e0e0e0; border-collapse: collapse;}
+.goodAdditionalPhoto {display: inline-block; margin-left: 10px; transition: .3s; width: 100px;}
+.goodAdditionalPhoto img {transition: .3s;}
