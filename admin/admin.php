@@ -73,7 +73,7 @@ if($_SESSION['userID'] != 1) {
 
 <div id="topLine">
     <div id="logo">
-        <a href="../"><span><i class="fa fa-home" aria-hidden="true"></i> <?= $_SERVER['HTTP_HOST'] ?></span></a>
+        <a href="/"><span><i class="fa fa-home" aria-hidden="true"></i> <?= $_SERVER['HTTP_HOST'] ?></span></a>
     </div>
     <a href="admin.php"><span class="headerText">Панель администрирвания</span></a>
     <div id="exit" onclick="exit()">
