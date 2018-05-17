@@ -51,3 +51,14 @@ function exit() {
         }
     });
 }
+
+function loadText(id) {
+    $.ajax({
+        type: "POST",
+        data: {"id": id},
+        url: "/scripts/admin/ajaxLoadText.php",
+        success: function (response) {
+            CKEDITOR.instances["textInput"].setData(response);
+        }
+    });
+}
