@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: jeyfost
  * Date: 18.05.2018
- * Time: 11:00
+ * Time: 13:33
  */
 
 session_start();
@@ -14,7 +14,7 @@ if($_SESSION['userID'] != 1) {
 }
 
 if(!empty($_REQUEST['id'])) {
-    $reviewCheckResult = $mysqli->query("SELECT COUNT(id) FROM akvasan_reviews WHERE id = '".$mysqli->real_escape_string($_REQUEST['id'])."'");
+    $reviewCheckResult = $mysqli->query("SELECT COUNT(id) FROM akvasan_properties WHERE id = '".$mysqli->real_escape_string($_REQUEST['id'])."'");
     $reviewCheck = $reviewCheckResult->fetch_array(MYSQLI_NUM);
 
     if($reviewCheck[0] == 0) {
@@ -37,7 +37,7 @@ if(!empty($_REQUEST['id'])) {
 
     <meta charset="utf-8" />
 
-    <title>Панель администрирования | Отзывы</title>
+    <title>Панель администрирования | Характеристики товаров</title>
 
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -58,7 +58,7 @@ if(!empty($_REQUEST['id'])) {
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="/libs/notify/notify.js"></script>
     <script type="text/javascript" src="/js/admin/common.js"></script>
-    <script type="text/javascript" src="/js/admin/reviews/index.js"></script>
+    <script type="text/javascript" src="/js/admin/properties/index.js"></script>
 
     <style>
         #page-preloader {position: fixed; left: 0; top: 0; right: 0; bottom: 0; background: #fff; z-index: 100500;}
@@ -107,12 +107,12 @@ if(!empty($_REQUEST['id'])) {
         </div>
     </a>
     <a href="/admin/properties/">
-        <div class="menuPoint">
+        <div class="menuPointActive">
             <i class="fa fa-check-square-o" aria-hidden="true"></i><span> Характеристики товаров</span>
         </div>
     </a>
     <a href="/admin/reviews/">
-        <div class="menuPointActive">
+        <div class="menuPoint">
             <i class="fa fa-commenting-o" aria-hidden="true"></i><span> Отзывы</span>
         </div>
     </a>
@@ -124,62 +124,36 @@ if(!empty($_REQUEST['id'])) {
 </div>
 
 <div id="content">
-    <span class="headerFont"><?php if(empty($_REQUEST['id'])) {echo "Редактирование отзывов";} else {echo "Редактирование отзыва";} ?></span>
+    <span class="headerFont"><?php if(empty($_REQUEST['id'])) {echo "Характеристики товаров";} else {echo "Редактирование характеристики";} ?></span>
     <br /><br />
-    <?php
-        if(empty($_REQUEST['id'])) {
-            $reviewResult = $mysqli->query("SELECT * FROM akvasan_reviews ORDER BY date DESC");
-
-            if($reviewResult->num_rows > 0) {
-                while($review = $reviewResult->fetch_assoc()) {
-                    echo "
-                        <br />
-                        <div class='row border-bottom'>
-                            <span class='nameFont'>".$review['name']."</span>
-                            <br />
-                            <span class='emailFont'>".$review['email']."</span>
-                            <br />
-                            <span>".dateToString($review['date'])."</span>
-                            <br /><br />
-                            <p>".$review['text']."</p>
-                            <br />
-                            <form id='showForm' method='post' class='relative'>
-                                <label for='showInput'>Отображать?</label>
-                                <input type='checkbox' id='showButton".$review['id']."' name='show' onclick='showReview(\"".$review['id']."\", \"showButton".$review['id']."\")' "; if($review['showing'] == 1) {echo "checked";} echo " />
-                            </form>
-                            <div class='clear'></div>
-                            <br />
-                            <a href='/admin/reviews/index.php?id=".$review['id']."'><i class='fa fa-pencil-square-o' aria-hidden='true'></i> Редактировать</a>
-                            <br />
-                            <span class='linkRed' onclick='deleteReview(\"".$review['id']."\")'><i class='fa fa-trash-o' aria-hidden='true'></i> Удалить</span>
-                            <br /><br />
-                        </div>
-                    ";
+    <form method="post" id="propertiesForm">
+        <label for="propertySelect">Характиристики:</label>
+        <br />
+        <select id="propertySelect" name="property" onchange="window.location = '?id=' + this.options[this.selectedIndex].value">
+            <option value="">- Выберите характеристику -</option>
+            <?php
+                $propertyResult = $mysqli->query("SELECT * FROM akvasan_properties ORDER BY name");
+                while($property = $propertyResult->fetch_assoc()) {
+                    echo "<option value='".$property['id']."'"; if($_REQUEST['id'] == $property['id']) {echo " selected";} echo ">".$property['name']."</option>";
                 }
-            } else {
-                echo "На данный момент отзывов на сайте нет.";
-            }
-        } else {
-            $reviewResult = $mysqli->query("SELECT * FROM akvasan_reviews WHERE id = '".$mysqli->real_escape_string($_REQUEST['id'])."'");
-            $review = $reviewResult->fetch_assoc();
+            ?>
+        </select>
+        <?php
+            if(!empty($_REQUEST['id'])) {
+                $propertyResult = $mysqli->query("SELECT * FROM akvasan_properties WHERE id = '".$mysqli->real_escape_string($_REQUEST['id'])."'");
+                $property = $propertyResult->fetch_assoc();
 
-            echo "
-                <a href='/admin/reviews'><i class='fa fa-long-arrow-left' aria-hidden='true'></i> Вернуться к списку отзывов</a>
-                <br /><br />
-                <form id='reviewForm' method='post'>
-                    <label for='nameInput'>Имя:</label>
-                    <br />
-                    <input id='nameInput' value='".$review['name']."' />
+                echo "
                     <br /><br />
-                    <label for='textInput'>Текст отзыва:</label>
+                    <label for='propertyInput'>Название характеристики:</label>
                     <br />
-                    <textarea id='textInput' onkeydown='textAreaHeight(this)'>".str_replace("<br />", "", $review['text'])."</textarea>
+                    <input id='propertyInput' value='".$property['name']."' />
                     <br /><br />
-                    <input type='button' class='button' id='reviewSubmit' value='Редактировать' onmouseover='buttonHover(\"reviewSubmit\", 1)' onmouseout='buttonHover(\"reviewSubmit\", 0)' onclick='edit(\"".$review['id']."\")' />
-                </form>
-            ";
-        }
-    ?>
+                    <input type='button' class='button' id='propertySubmit' value='Редактировать' onmouseover='buttonHover(\"propertySubmit\", 1)' onmouseout='buttonHover(\"propertySubmit\", 0)' onclick='edit()' />
+                ";
+            }
+        ?>
+    </form>
 </div>
 
 </body>
