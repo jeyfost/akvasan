@@ -41,3 +41,41 @@ function edit() {
         $.notify("Вы не выбрали характеристику.", "error");
     }
 }
+
+function deleteProperty() {
+    if(confirm("Вы действительно хотите удалить эту характеристику? Эта характеристика будет удалена у всех существующих товаров, если она в них прописана.")) {
+        const id = $("#propertySelect").val();
+
+        if(id !== '') {
+            $.ajax({
+                type: "POST",
+                data: {"id": id},
+                url: "/scripts/admin/properties/ajaxDeleteProperty.php",
+                beforeSend: function () {
+                    $.notify("Характиристика удаляется...", "info");
+                },
+                success: function (response) {
+                    switch(response) {
+                        case "ok":
+                            $.notify("Характеристика была успешно удалена.", "success");
+                            setTimeout(function () {
+                                window.location.href = "/admin/properties";
+                            }, 2000);
+                            break;
+                        case "failed":
+                            $.notify("При удалении характеристики произошла ошибка. Попробуйте снова.", "error");
+                            break;
+                        default:
+                            $.notify(response, "warn");
+                            break;
+                    }
+                },
+                error: function (jqXHR, exception) {
+                    console.log(jqXHR);
+                }
+            });
+        } else {
+            $.notify("Вы не выбрали свойство.", "error");
+        }
+    }
+}

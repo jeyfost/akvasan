@@ -3,12 +3,11 @@
  * Created by PhpStorm.
  * User: jeyfost
  * Date: 18.05.2018
- * Time: 14:06
+ * Time: 15:07
  */
 
 include("../../connect.php");
 
-$id = $mysqli->real_escape_string($_POST['id']);
 $name = $mysqli->real_escape_string($_POST['name']);
 
 $name = mb_strtolower($name);
@@ -18,7 +17,7 @@ $nameCheckResult = $mysqli->query("SELECT COUNT(id) FROM akvasan_properties WHER
 $nameCheck = $nameCheckResult->fetch_array(MYSQLI_NUM);
 
 if($nameCheck[0] == 0) {
-    if($mysqli->query("UPDATE akvasan_properties SET name = '".$name."' WHERE id = '".$id."'")) {
+    if($mysqli->query("INSERT INTO akvasan_properties (name) VALUES ('".$name."')")) {
         echo "ok";
     } else {
         echo "failed";

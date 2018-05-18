@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: jeyfost
  * Date: 18.05.2018
- * Time: 13:33
+ * Time: 14:39
  */
 
 session_start();
@@ -11,15 +11,6 @@ include("../../scripts/connect.php");
 
 if($_SESSION['userID'] != 1) {
     header("Location: ../");
-}
-
-if(!empty($_REQUEST['id'])) {
-    $reviewCheckResult = $mysqli->query("SELECT COUNT(id) FROM akvasan_properties WHERE id = '".$mysqli->real_escape_string($_REQUEST['id'])."'");
-    $reviewCheck = $reviewCheckResult->fetch_array(MYSQLI_NUM);
-
-    if($reviewCheck[0] == 0) {
-        header("Location: index.php");
-    }
 }
 
 ?>
@@ -58,7 +49,7 @@ if(!empty($_REQUEST['id'])) {
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="/libs/notify/notify.js"></script>
     <script type="text/javascript" src="/js/admin/common.js"></script>
-    <script type="text/javascript" src="/js/admin/properties/index.js"></script>
+    <script type="text/javascript" src="/js/admin/properties/add.js"></script>
 
     <style>
         #page-preloader {position: fixed; left: 0; top: 0; right: 0; bottom: 0; background: #fff; z-index: 100500;}
@@ -124,46 +115,15 @@ if(!empty($_REQUEST['id'])) {
 </div>
 
 <div id="content">
-    <span class="headerFont"><?php if(empty($_REQUEST['id'])) {echo "Характеристики товаров";} else {echo "Редактирование характеристики";} ?></span>
+    <span class="headerFont">Добавление новой характеристики товаров</span>
     <br /><br />
     <form method="post" id="propertiesForm">
-        <label for="propertySelect">Характиристики:</label>
+        <label for='propertyInput'>Название характеристики:</label>
         <br />
-        <select id="propertySelect" name="property" onchange="window.location = '?id=' + this.options[this.selectedIndex].value">
-            <option value="">- Выберите характеристику -</option>
-            <?php
-                $propertyResult = $mysqli->query("SELECT * FROM akvasan_properties ORDER BY name");
-                while($property = $propertyResult->fetch_assoc()) {
-                    echo "<option value='".$property['id']."'"; if($_REQUEST['id'] == $property['id']) {echo " selected";} echo ">".$property['name']."</option>";
-                }
-            ?>
-        </select>
-        <?php
-            if(!empty($_REQUEST['id'])) {
-                $propertyResult = $mysqli->query("SELECT * FROM akvasan_properties WHERE id = '".$mysqli->real_escape_string($_REQUEST['id'])."'");
-                $property = $propertyResult->fetch_assoc();
-
-                echo "
-                    <br /><br />
-                    <label for='propertyInput'>Название характеристики:</label>
-                    <br />
-                    <input id='propertyInput' value='".$property['name']."' />
-                    <br /><br />
-                    <input type='button' class='button relative' id='propertySubmit' value='Редактировать' onmouseover='buttonHover(\"propertySubmit\", 1)' onmouseout='buttonHover(\"propertySubmit\", 0)' onclick='edit()' />
-                    <input type='button' class='button relative' id='deletePropertySubmit' value='Удалить' onmouseover='buttonHoverRed(\"deletePropertySubmit\", 1)' onmouseout='buttonHoverRed(\"deletePropertySubmit\", 0)' onclick='deleteProperty()' style='margin-left: 20px;' />
-                    <a href='/admin/properties/add.php'><input type='button' class='button relative' id='newPropertySubmit' value='Добавить новую характеристику' onmouseover='buttonHover(\"newPropertySubmit\", 1)' onmouseout='buttonHover(\"newPropertySubmit\", 0)' style='margin-left: 20px;' /></a>
-                    <div class='clear'></div>
-                ";
-            } else {
-                echo "
-                    <br /><br />
-                    <a href='/admin/properties/add.php'><input type='button' class='button' id='newPropertySubmit' value='Добавить новую характеристику' onmouseover='buttonHover(\"newPropertySubmit\", 1)' onmouseout='buttonHover(\"newPropertySubmit\", 0)' /></a>
-                ";
-            }
-        ?>
+        <input id='propertyInput' />
+        <br /><br />
+        <input type='button' class='button' id='propertySubmit' value='Добавить' onmouseover='buttonHover("propertySubmit", 1)' onmouseout='buttonHover("propertySubmit", 0)' onclick='add()' />
     </form>
 </div>
 
 </body>
-
-</html>
