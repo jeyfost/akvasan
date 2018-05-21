@@ -96,6 +96,11 @@ if($_SESSION['userID'] != 1) {
             <i class="fa fa-shower" aria-hidden="true"></i><span> Товары</span>
         </div>
     </a>
+    <a href="/admin/categories/">
+        <div class="menuPoint">
+            <i class="fa fa-bars" aria-hidden="true"></i><span> Разделы</span>
+        </div>
+    </a>
     <a href="/admin/properties/">
         <div class="menuPoint">
             <i class="fa fa-check-square-o" aria-hidden="true"></i><span> Характеристики товаров</span>
