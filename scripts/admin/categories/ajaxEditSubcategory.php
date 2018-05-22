@@ -20,17 +20,21 @@ $subcategoryCheckResult = $mysqli->query("SELECT COUNT(id) FROM akvasan_subcateg
 $subcategoryCheck = $subcategoryCheckResult->fetch_array(MYSQLI_NUM);
 
 if($subcategoryCheck[0] == 0) {
-    $urlCheckResult = $mysqli->query("SELECT COUNT(id) FROM akvasan_subcategories WHERE category_id = '".$categoryId."' AND id <> '".$subcategoryId."' AND url = '".$url."'");
-    $urlCheck = $urlCheckResult->fetch_array(MYSQLI_NUM);
+    if(!is_numeric($url)) {
+        $urlCheckResult = $mysqli->query("SELECT COUNT(id) FROM akvasan_subcategories WHERE id <> '".$subcategoryId."' AND url = '".$url."'");
+        $urlCheck = $urlCheckResult->fetch_array(MYSQLI_NUM);
 
-    if($urlCheck[0] == 0) {
-        if($mysqli->query("UPDATE akvasan_subcategories SET name = '".$name."', url = '".$url."' WHERE id = '".$subcategoryId."'")) {
-            echo "ok";
+        if($urlCheck[0] == 0) {
+            if($mysqli->query("UPDATE akvasan_subcategories SET name = '".$name."', url = '".$url."' WHERE id = '".$subcategoryId."'")) {
+                echo "ok";
+            } else {
+                echo "failed";
+            }
         } else {
-            echo "failed";
+            echo "url duplicate";
         }
     } else {
-        echo "url duplicate";
+        echo "url format";
     }
 } else {
     echo "duplicate";

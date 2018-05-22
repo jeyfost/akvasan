@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: jeyfost
- * Date: 21.05.2018
- * Time: 10:58
+ * Date: 22.05.2018
+ * Time: 12:14
  */
 
 include("../../connect.php");
@@ -15,16 +15,16 @@ $url = $mysqli->real_escape_string($_POST['url']);
 $name = mb_strtolower($name);
 $name = mb_strtoupper(mb_substr($name, 0, 1)).mb_substr($name, 1);
 
-$categoryCheckResult = $mysqli->query("SELECT COUNT(id) FROM akvasan_categories WHERE name = '".$name."' AND id <> '".$id."'");
-$categoryCheck = $categoryCheckResult->fetch_array(MYSQLI_NUM);
+$nameCheckResult = $mysqli->query("SELECT * FROM akvasan_subcategories WHERE name = '".$name."' AND category_id = '".$id."'");
+$nameCheck = $nameCheckResult->fetch_array(MYSQLI_NUM);
 
-if($categoryCheck[0] == 0) {
+if($nameCheck[0] == 0) {
     if(!is_numeric($url)) {
-        $urlCheckResult = $mysqli->query("SELECT COUNT(id) FROM akvasan_categories WHERE url = '".$url."' AND id <> '".$id."'");
-        $urlCheck = $urlCheckResult->fetch_array(MYSQLI_NUM);
+        $urlCheckResult = $mysqli->query("SELECT COUNT(id) FROM akvasan_subcategories WHERE url = '".$url."'");
+        $urlCheck = $urlCheckResult->fetch_assoc();
 
         if($urlCheck[0] == 0) {
-            if($mysqli->query("UPDATE akvasan_categories SET name = '".$name."', url = '".$url."' WHERE id = '".$id."'")) {
+            if($mysqli->query("INSERT INTO akvasan_subcategories (category_id, name, url) VALUES ('".$id."', '".$name."', '".$url."')")) {
                 echo "ok";
             } else {
                 echo "failed";
@@ -36,5 +36,5 @@ if($categoryCheck[0] == 0) {
         echo "url format";
     }
 } else {
-    echo "duplicate";
+    echo "name duplicate";
 }

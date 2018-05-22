@@ -79,7 +79,10 @@ function editSubcategory() {
                         $.notify("Подраздел с таким названием уже существует в выбранном разделе.", "error");
                         break;
                     case "url duplicate":
-                        $.notify("Подраздел с таким идентификатором уже существует в выбранном разделе.", "error");
+                        $.notify("Подраздел с таким идентификатором уже существует.", "error");
+                        break;
+                    case "url format":
+                        $.notify("Идентификатор не может состоять из одних цифр.", "error");
                         break;
                     default:
                         $.notify(response, "warn");
@@ -99,7 +102,7 @@ function deleteCategory() {
         $.ajax({
             type: "POST",
             data: {"id": id},
-            url: "/scripts/admin/ajaxDeleteCategory.php",
+            url: "/scripts/admin/categories/ajaxDeleteCategory.php",
             beforeSend: function () {
                 $.notify("Раздел удаляется...", "info");
             },
@@ -132,7 +135,7 @@ function deleteSubcategory() {
         $.ajax({
             type: "POST",
             data: {"id": id},
-            url: "/scripts/admin/ajaxDeleteSubcategory.php",
+            url: "/scripts/admin/categories/ajaxDeleteSubcategory.php",
             beforeSend: function () {
                 $.notify("Подраздел удаляется...", "info");
             },
