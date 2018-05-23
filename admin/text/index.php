@@ -78,7 +78,7 @@ if(!empty($_REQUEST['id'])) {
     <!-- Google Analytics counter --><!-- /Google Analytics counter -->
 </head>
 
-<body <?php if(!empty($_REQUEST['id'])) {echo "onloa='loadText(\"".$_REQUEST['id']."\")'";} ?>>
+<body <?php if(!empty($_REQUEST['id'])) {echo "onload='loadText(\"".$_REQUEST['id']."\")'";} ?>>
 
 <div id="page-preloader"><span class="spinner"></span></div>
 
@@ -153,7 +153,7 @@ if(!empty($_REQUEST['id'])) {
                     <br /><br />
                     <label for='textInput'>Текст:</label>
                     <br />
-                    <textarea id='textInput' name='text'>".$text['text']."</textarea>
+                    <textarea id='textInput' name='text'></textarea>
                     <br /><br />
                     <input type='button' class='button' id='pageSubmit' value='Редактировать' onmouseover='buttonHover(\"pageSubmit\", 1)' onmouseout='buttonHover(\"pageSubmit\", 0)' onclick='edit()' />
                 ";
