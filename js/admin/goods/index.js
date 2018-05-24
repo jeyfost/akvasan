@@ -172,3 +172,37 @@ function deleteGoodPhoto(id, goodID) {
         });
     }
 }
+
+function deleteGood() {
+    if(confirm("Вы действительно хотите удалить выбранный товар?")) {
+        const category = $("#categorySelect").val();
+        const subcategory = $("#subcategorySelect").val();
+        const id = $("#goodSelect").val();
+
+        $.ajax({
+            type: "POST",
+            data: {"id": id},
+            url: "/scripts/admin/goods/ajaxDeleteGood.php",
+            beforeSend: function () {
+                $.notify("Товар удаляется...", "info");
+            },
+            success: function (response) {
+                switch(response) {
+                    case "ok":
+                        $.notify("Товар был успешно удалён.", "success");
+
+                        setTimeout(function () {
+                            window.location.href = "/admin/goods/?c=" + category + "&s=" + subcategory;
+                        }, 2000);
+                        break;
+                    case "failed":
+                        $.notify("Во время удаления товара произошла ошибка. Попробуйте снова.", "error");
+                        break;
+                    default:
+                        $.notify(response, "warn");
+                        break;
+                }
+            }
+        });
+    }
+}
