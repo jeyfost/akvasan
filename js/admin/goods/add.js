@@ -1,18 +1,6 @@
-function loadGoodText(id) {
-    $.ajax({
-        type: "POST",
-        data: {"id": id},
-        url: "/scripts/admin/goods/ajaxLoadGoodText.php",
-        success: function (response) {
-            CKEDITOR.instances["textInput"].setData(response);
-        }
-    });
-}
-
-function editGood() {
+function addGood() {
     const category = $("#categorySelect").val();
     const subcategory = $("#subcategorySelect").val();
-    const good = $("#goodSelect").val();
     const name = $("#nameInput").val();
     const url = $("#urlInput").val();
     const price = $("#priceInput").val();
@@ -64,21 +52,21 @@ function editGood() {
                                     processData: false,
                                     contentType: false,
                                     dataType: "json",
-                                    url: "/scripts/admin/goods/ajaxEditGood.php",
+                                    url: "/scripts/admin/goods/ajaxAddGood.php",
                                     beforeSend: function () {
-                                        $.notify("Товар обновляется...", "info");
+                                        $.notify("Товар добавляется...", "info");
                                     },
                                     success: function(response) {
                                         switch (response) {
                                             case "ok":
-                                                $.notify("Товар был успешно отредактирован.", "success");
+                                                $.notify("Товар был успешно добавлен.", "success");
 
                                                 setTimeout(function () {
-                                                    window.location.href = "/admin/goods/?c=" + category + "&s=" + subcategory + "&id=" + good;
+                                                    window.location.href = "/admin/goods/?c=" + category + "&s=" + subcategory;
                                                 }, 2000);
                                                 break;
                                             case "failed":
-                                                $.notify("Во время редактирования товара произошла ошибка. Попробуйте снова.", "error");
+                                                $.notify("Во время добавления товара произошла ошибка. Попробуйте снова.", "error");
                                                 break;
                                             case "name duplicate":
                                                 $.notify("Такое название товара уже существует в выбранном подразделе.", "error");
@@ -88,6 +76,9 @@ function editGood() {
                                                 break;
                                             case "url format":
                                                 $.notify("Идентификатор не может состоять из одних цифр.", "error");
+                                                break;
+                                            case "photo":
+                                                $.notify("Вы не выбрали фотографию товара.", "error");
                                                 break;
                                             case "preview":
                                                 $.notify("Выбранная фотография товара имеет недопустимый формат.", "error");
@@ -108,6 +99,9 @@ function editGood() {
                                                 $.notify(response, "warn");
                                                 break;
                                         }
+                                    },
+                                    error: function (jqXHR, exception) {
+                                        console.log(jqXHR);
                                     }
                                 });
                             } else {
@@ -130,79 +124,5 @@ function editGood() {
         }
     } else {
         $.notify("Вы не выбрали ни одной характеристики товара. Выберите хотя бы одну.", "error");
-    }
-}
-
-function deleteGoodPhoto(id, goodID) {
-    if(confirm("Вы действительно хотите удалить фотографию?")) {
-        $.ajax({
-            type: "POST",
-            data: {"id": id},
-            url: "/scripts/admin/goods/ajaxDeletePhoto.php",
-            beforeSend: function () {
-                $.notify("Фотография удаляется...", "info");
-            },
-            success: function (response) {
-                switch (response) {
-                    case "ok":
-                        $.notify("Фотография была успешно удалена.", "success");
-
-                        $.ajax({
-                            type: "POST",
-                            data: {"id": goodID},
-                            url: "/scripts/admin/goods/ajaxReloadPhotosContainer.php",
-                            success: function (photos) {
-                                $(".goodPhotos").css("opacity", 0);
-
-                                setTimeout(function () {
-                                    $(".goodPhotos").html(photos);
-                                    $(".goodPhotos").css("opacity", 1);
-                                }, 300);
-                            }
-                        });
-                        break;
-                    case "failed":
-                        $.notify("Во время удаления фотографии произошла ошибка. Попробуйте снова.", "error");
-                        break;
-                    default:
-                        $.notify(response, "warn");
-                        break;
-                }
-            }
-        });
-    }
-}
-
-function deleteGood() {
-    if(confirm("Вы действительно хотите удалить выбранный товар?")) {
-        const category = $("#categorySelect").val();
-        const subcategory = $("#subcategorySelect").val();
-        const id = $("#goodSelect").val();
-
-        $.ajax({
-            type: "POST",
-            data: {"id": id},
-            url: "/scripts/admin/goods/ajaxDeleteGood.php",
-            beforeSend: function () {
-                $.notify("Товар удаляется...", "info");
-            },
-            success: function (response) {
-                switch(response) {
-                    case "ok":
-                        $.notify("Товар был успешно удалён.", "success");
-
-                        setTimeout(function () {
-                            window.location.href = "/admin/goods/?c=" + category + "&s=" + subcategory;
-                        }, 2000);
-                        break;
-                    case "failed":
-                        $.notify("Во время удаления товара произошла ошибка. Попробуйте снова.", "error");
-                        break;
-                    default:
-                        $.notify(response, "warn");
-                        break;
-                }
-            }
-        });
     }
 }
