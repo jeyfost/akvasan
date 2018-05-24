@@ -42,6 +42,9 @@ if($nameCheck[0] == 0) {
 
     if($codeCheck[0] == 0) {
         if(!is_numeric($url)) {
+            $url = str_replace(" ", "-", $url);
+            $url = str_replace("_", "-", $url);
+
             $urlCheckResult = $mysqli->query("SELECT COUNT(id) FROM akvasan_catalogue WHERE url = '".$url."' AND id <> '".$goodID."'");
             $urlCheck = $urlCheckResult->fetch_array(MYSQLI_NUM);
 
@@ -51,13 +54,13 @@ if($nameCheck[0] == 0) {
                         $previewTmpName = $_FILES['preview']['tmp_name'];
                         $previewName = randomName($previewTmpName);
                         $previewDBName = $previewName.".".substr($_FILES['preview']['name'], count($_FILES['preview']['name']) - 4, 4);
-                        $previewUploadDir = "../img/catalogue/preview/";
+                        $previewUploadDir = "../../../img/catalogue/preview/";
                         $previewUpload = $previewUploadDir.$previewDBName;
 
                         $photoTmpName = $_FILES['preview']['tmp_name'];
                         $photoName = randomName($photoTmpName);
                         $photoDBName = $photoName.".".substr($_FILES['preview']['name'], count($_FILES['preview']['name']) - 4, 4);
-                        $photoUploadDir = "../img/catalogue/big/";
+                        $photoUploadDir = "../../../img/catalogue/big/";
                         $photoUpload = $photoUploadDir.$photoDBName;
 
                         if($mysqli->query("UPDATE akvasan_catalogue SET photo = '".$photoDBName."', preview = '".$previewDBName."' WHERE id = '".$goodID."'")) {
@@ -103,10 +106,10 @@ if($nameCheck[0] == 0) {
                 if($errors == 0) {
                     foreach ($_FILES['additionalPhotos']['error'] as $key => $error) {
                         if($error == UPLOAD_ERR_OK) {
-                            $photoTmpName = $_FILES['preview']['tmp_name'];
+                            $photoTmpName = $_FILES['additionalPhotos']['tmp_name'][$key];
                             $photoName = randomName($photoTmpName);
-                            $photoDBName = $photoName.".".substr($_FILES['preview']['name'], count($_FILES['preview']['name']) - 4, 4);
-                            $photoUploadDir = "../img/catalogue/big/";
+                            $photoDBName = $photoName.".".substr($_FILES['additionalPhotos']['name'][$key], count($_FILES['additionalPhotos']['name'][$key]) - 4, 4);
+                            $photoUploadDir = "../../../img/catalogue/all/";
                             $photoUpload = $photoUploadDir.$photoDBName;
 
                             $start++;
@@ -139,7 +142,7 @@ if($nameCheck[0] == 0) {
                     exit;
                 }
 
-                if($mysqli->query("UPDATE akvasan_catalogue SET name = '".$name."', description = '".$text."', code = '".$code."', leader = '".$leader."' WHERE id = '".$goodID."'")) {
+                if($mysqli->query("UPDATE akvasan_catalogue SET name = '".$name."', description = '".$text."', code = '".$code."', leader = '".$leader."', url = '".$url."' WHERE id = '".$goodID."'")) {
                     $mysqli->query("DELETE FROM akvasan_good_properties WHERE good_id = '".$goodID."'");
 
                     for($i = 0; $i < count($propertyID); $i++) {

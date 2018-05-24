@@ -132,3 +132,43 @@ function editGood() {
         $.notify("Вы не выбрали ни одной характеристики товара. Выберите хотя бы одну.", "error");
     }
 }
+
+function deleteGoodPhoto(id, goodID) {
+    if(confirm("Вы действительно хотите удалить фотографию?")) {
+        $.ajax({
+            type: "POST",
+            data: {"id": id},
+            url: "/scripts/admin/goods/ajaxDeletePhoto.php",
+            beforeSend: function () {
+                $.notify("Фотография удаляется...", "info");
+            },
+            success: function (response) {
+                switch (response) {
+                    case "ok":
+                        $.notify("Фотография была успешно удалена.", "success");
+
+                        $.ajax({
+                            type: "POST",
+                            data: {"id": goodID},
+                            url: "/scripts/admin/goods/ajaxReloadPhotosContainer.php",
+                            success: function (photos) {
+                                $(".goodPhotos").css("opacity", 0);
+
+                                setTimeout(function () {
+                                    $(".goodPhotos").html(photos);
+                                    $(".goodPhotos").css("opacity", 1);
+                                }, 300);
+                            }
+                        });
+                        break;
+                    case "failed":
+                        $.notify("Во время удаления фотографии произошла ошибка. Попробуйте снова.", "error");
+                        break;
+                    default:
+                        $.notify(response, "warn");
+                        break;
+                }
+            }
+        });
+    }
+}

@@ -236,7 +236,7 @@ if(!empty($_REQUEST['id'])) {
                             <div class='goodPhoto'>
                                 <a href='/img/catalogue/all/".$goodPhoto['photo']."' class='lightview' data-lightview-options='skin: \"light\"' data-lightview-group='photos'><img src='/img/catalogue/all/".$goodPhoto['photo']."' /></a>
 							    <br />
-								<span onclick='deleteGoodPhoto(\"".$goodPhoto['id']."\")' class='photoLink'>Удалить</span>
+								<span onclick='deleteGoodPhoto(\"".$goodPhoto['id']."\", \"".$good['id']."\")' class='photoLink'>Удалить</span>
                             </div>
                         ";
                     }
