@@ -112,9 +112,9 @@ if(!empty($_REQUEST['s'])) {
             <i class="fa fa-font" aria-hidden="true"></i><span> Тексты</span>
         </div>
     </a>
-    <a href="/admin/goods/">
-        <div class="menuPointActive">
-            <i class="fa fa-shower" aria-hidden="true"></i><span> Товары</span>
+    <a href="/admin/reviews/">
+        <div class="menuPoint">
+            <i class="fa fa-commenting-o" aria-hidden="true"></i><span> Отзывы</span>
         </div>
     </a>
     <a href="/admin/categories/">
@@ -122,14 +122,14 @@ if(!empty($_REQUEST['s'])) {
             <i class="fa fa-bars" aria-hidden="true"></i><span> Разделы</span>
         </div>
     </a>
+    <a href="/admin/goods/">
+        <div class="menuPointActive">
+            <i class="fa fa-shower" aria-hidden="true"></i><span> Товары</span>
+        </div>
+    </a>
     <a href="/admin/properties/">
         <div class="menuPoint">
             <i class="fa fa-check-square-o" aria-hidden="true"></i><span> Характеристики товаров</span>
-        </div>
-    </a>
-    <a href="/admin/reviews/">
-        <div class="menuPoint">
-            <i class="fa fa-commenting-o" aria-hidden="true"></i><span> Отзывы</span>
         </div>
     </a>
     <a href="/admin/security/">

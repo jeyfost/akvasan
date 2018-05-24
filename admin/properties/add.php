@@ -92,6 +92,11 @@ if($_SESSION['userID'] != 1) {
             <i class="fa fa-font" aria-hidden="true"></i><span> Тексты</span>
         </div>
     </a>
+    <a href="/admin/reviews/">
+        <div class="menuPoint">
+            <i class="fa fa-commenting-o" aria-hidden="true"></i><span> Отзывы</span>
+        </div>
+    </a>
     <a href="/admin/categories/">
         <div class="menuPoint">
             <i class="fa fa-bars" aria-hidden="true"></i><span> Разделы</span>
@@ -105,11 +110,6 @@ if($_SESSION['userID'] != 1) {
     <a href="/admin/properties/">
         <div class="menuPointActive">
             <i class="fa fa-check-square-o" aria-hidden="true"></i><span> Характеристики товаров</span>
-        </div>
-    </a>
-    <a href="/admin/reviews/">
-        <div class="menuPoint">
-            <i class="fa fa-commenting-o" aria-hidden="true"></i><span> Отзывы</span>
         </div>
     </a>
     <a href="/admin/security/">

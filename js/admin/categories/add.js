@@ -63,7 +63,7 @@ function addSubcategory() {
                     "name": name,
                     "url": url
                 },
-                src: "/scripts/admin/categories/ajaxAddSubcategory.php",
+                url: "/scripts/admin/categories/ajaxAddSubcategory.php",
                 beforeSend: function () {
                     $.notify("Подраздел добавляется...", "info");
                 },

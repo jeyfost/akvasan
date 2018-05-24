@@ -109,7 +109,7 @@ function deleteCategory() {
             success: function (response) {
                 switch (response) {
                     case "ok":
-                        $.notify("Раздел был успешно удалён.");
+                        $.notify("Раздел был успешно удалён.", "success");
 
                         setTimeout(function () {
                             window.location.href = "/admin/categories";
@@ -142,8 +142,7 @@ function deleteSubcategory() {
             success: function (response) {
                 switch (response) {
                     case "ok":
-                        $.notify("Подраздел был успешно удалён.");
-
+                        $.notify("Подраздел был успешно удалён.", "success");
                         setTimeout(function () {
                             window.location.href = "/admin/categories?c=" + category;
                         }, 2000);
