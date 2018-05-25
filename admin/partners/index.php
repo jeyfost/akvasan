@@ -2,12 +2,13 @@
 /**
  * Created by PhpStorm.
  * User: jeyfost
- * Date: 16.05.2018
- * Time: 12:59
+ * Date: 25.05.2018
+ * Time: 10:07
  */
 
+
 session_start();
-include("../scripts/connect.php");
+include("../../scripts/connect.php");
 
 if($_SESSION['userID'] != 1) {
     header("Location: ../");
@@ -28,7 +29,7 @@ if($_SESSION['userID'] != 1) {
 
     <meta charset="utf-8" />
 
-    <title>Панель администрирования | Страницы</title>
+    <title>Панель администрирования | Партнёры</title>
 
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -45,10 +46,13 @@ if($_SESSION['userID'] != 1) {
 
     <link rel="stylesheet" type="text/css" href="/css/admin.css" />
     <link rel="stylesheet" href="/libs/font-awesome-4.7.0/css/font-awesome.css" />
+    <link rel="stylesheet" href="/libs/lightview/css/lightview/lightview.css" />
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/libs/lightview/js/lightview/lightview.js"></script>
     <script type="text/javascript" src="/libs/notify/notify.js"></script>
     <script type="text/javascript" src="/js/admin/common.js"></script>
+    <script type="text/javascript" src="/js/admin/partners/index.js"></script>
 
     <style>
         #page-preloader {position: fixed; left: 0; top: 0; right: 0; bottom: 0; background: #fff; z-index: 100500;}
@@ -112,7 +116,7 @@ if($_SESSION['userID'] != 1) {
         </div>
     </a>
     <a href="/admin/partners/">
-        <div class="menuPoint">
+        <div class="menuPointActive">
             <i class="fa fa-handshake-o" aria-hidden="true"></i><span> Партнёры</span>
         </div>
     </a>
@@ -124,7 +128,30 @@ if($_SESSION['userID'] != 1) {
 </div>
 
 <div id="content">
-    <span class="headerFont"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Для начала работы выберите раздел</span>
+    <span class="headerFont">Редактирование слайдера с логотипами партнёров</span>
+    <br /><br />
+    <form method="post" enctype="multipart/form-data" id="partnersForm" name="partnersForm">
+        <label for="logoInput">Выберите логотипы:</label>
+        <br />
+        <input type="file" class="file" id="logoInput" name="logo[]" multiple="multiple" />
+        <br /><br />
+        <div class="goodPhotos">
+            <?php
+                $logoResult = $mysqli->query("SELECT * FROM akvasan_partners");
+                while($logo = $logoResult->fetch_assoc()) {
+                    echo "
+                        <div class='logo'>
+                            <a href='/img/partners/".$logo['img']."' class='lightview' data-lightview-options='skin: \"light\"' data-lightview-group='photos'><img src='/img/partners/".$logo['img']."' /></a>
+							    <br />
+								<span onclick='deleteLogo(\"".$logo['img']."\")' class='photoLink'>Удалить</span>
+                        </div>
+                    ";
+                }
+            ?>
+        </div>
+        <br /><br /><br />
+        <input type='button' class='button' id='addLogoSubmit' value='Добавить' onmouseover='buttonHover("addLogoSubmit", 1)' onmouseout='buttonHover("addLogoSubmit", 0)' onclick='addLogo()' />
+    </form>
 </div>
 
 </body>

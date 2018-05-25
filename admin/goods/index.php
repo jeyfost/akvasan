@@ -142,6 +142,11 @@ if(!empty($_REQUEST['id'])) {
             <i class="fa fa-check-square-o" aria-hidden="true"></i><span> Характеристики товаров</span>
         </div>
     </a>
+    <a href="/admin/partners/">
+        <div class="menuPoint">
+            <i class="fa fa-handshake-o" aria-hidden="true"></i><span> Партнёры</span>
+        </div>
+    </a>
     <a href="/admin/security/">
         <div class="menuPoint">
             <i class="fa fa-shield" aria-hidden="true"></i><span> Безопасность</span>
