@@ -143,7 +143,7 @@ if($_SESSION['userID'] != 1) {
                         <div class='logo'>
                             <a href='/img/partners/".$logo['img']."' class='lightview' data-lightview-options='skin: \"light\"' data-lightview-group='photos'><img src='/img/partners/".$logo['img']."' /></a>
 							    <br />
-								<span onclick='deleteLogo(\"".$logo['img']."\")' class='photoLink'>Удалить</span>
+								<span onclick='deleteLogo(\"".$logo['id']."\")' class='photoLink'>Удалить</span>
                         </div>
                     ";
                 }

@@ -44,3 +44,42 @@ function addLogo() {
         $.notify("Вы не выбрали ни одного логотипа.", "error");
     }
 }
+
+function deleteLogo(id) {
+    if(confirm("Вы действительно хотите удалить этот логотип?")) {
+        $.ajax({
+            type: "POST",
+            data: {"id": id},
+            url: "/scripts/admin/partners/ajaxDeleteLogo.php",
+            beforeSend: function () {
+                $.notify("Логотип удаляется...", "info");
+            },
+            success: function (response) {
+                switch(response) {
+                    case "ok":
+                        $.notify("Логотип был успешно удалён", "success");
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/scripts/admin/partners/ajaxReloadLogos.php",
+                            success: function(logos) {
+                                $(".goodPhotos").css("opacity", 0);
+
+                                setTimeout(function () {
+                                    $(".goodPhotos").html(logos);
+                                    $(".goodPhotos").css("opacity", 1);
+                                }, 300);
+                            }
+                        });
+                        break;
+                    case "failed":
+                        $.notify("Во время удаления логотипа произошла ошибка. Попробуйте снова.", "error");
+                        break;
+                    default:
+                        $.notify(response, "warn");
+                        break;
+                }
+            }
+        });
+    }
+}
