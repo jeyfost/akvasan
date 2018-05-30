@@ -145,18 +145,13 @@ $page = $pageResult->fetch_assoc();
                     <div class="textContainer"><a href="tel:<?= COUNTRY_CODE ?> (<?= MTS_CODE ?>) <?= MTS_NUMBER ?>"><?= COUNTRY_CODE ?> <?= MTS_CODE ?> <b><?= MTS_NUMBER ?></b></a></div>
                     <div class="clear"></div>
                 </div>
-                <div class="menuRow">
-                    <div class="iconContainer"><img src="/img/system/life.png" /></div>
-                    <div class="textContainer"><a href="tel:<?= COUNTRY_CODE ?> (<?= LIFE_CODE ?>) <?= LIFE_NUMBER ?>"><?= COUNTRY_CODE ?> <?= LIFE_CODE ?> <b><?= LIFE_NUMBER ?></b></a></div>
-                    <div class="clear"></div>
-                </div>
             </div>
             <div class="container25" id="timeContainer">
                 <b>Время работы:</b>
                 <br /><br />
-                <span>Пн-Пт: 9:00 - 18:00</span>
+                <span>Пн: выходной</span>
                 <br />
-                <span>Сб: 10:00-17</span>
+                <span>Вт - Вс: 9:00-15:00</span>
             </div>
             <div class="clear"></div>
         </div>
@@ -198,7 +193,7 @@ $page = $pageResult->fetch_assoc();
                 <br /><br />
                 <img src="/img/system/pay-logos.png" />
                 <br /><br />
-                <span><a href="/">akvasan.by</a> &copy; 2010-<?= date('Y') ?></span>
+                <span><a href="/">akvasan.by</a> &copy; 2007-<?= date('Y') ?></span>
             </div>
             <div class="container25" id="footerMenuContainer">
                 <a href="/">Главная</a>
@@ -224,11 +219,6 @@ $page = $pageResult->fetch_assoc();
                     <div class="textContainer"><a href="tel:<?= COUNTRY_CODE ?> (<?= MTS_CODE ?>) <?= MTS_NUMBER ?>"><?= COUNTRY_CODE ?> <?= MTS_CODE ?> <b><?= MTS_NUMBER ?></b></a></div>
                     <div class="clear"></div>
                 </div>
-                <div class="menuRow">
-                    <div class="iconContainer"><img src="/img/system/life.png" /></div>
-                    <div class="textContainer"><a href="tel:<?= COUNTRY_CODE ?> (<?= LIFE_CODE ?>) <?= LIFE_NUMBER ?>"><?= COUNTRY_CODE ?> <?= LIFE_CODE ?> <b><?= LIFE_NUMBER ?></b></a></div>
-                    <div class="clear"></div>
-                </div>
             </div>
             <div class="clear"></div>
         </div>
@@ -237,18 +227,16 @@ $page = $pageResult->fetch_assoc();
     <div class="bottomFooter">
         <div class="innerSection" id="footerInnerSection">
             <div class="footerLeft">
-                <span>ИП Борисова Т.В. г. Могилёв, ул. Быховская, 6. Зарегистрирован в торговом реестре 01.01.2010 в Могилёвском облостном исполнительном комитете. УНП 77777777. Свидетельство о государственной регистрации выдано Могилёвским областным исполкомом 01.01.2010 г.</span>
+                <span>ИП Борисова Т.В. г. Могилёв, Могилёвский рынок, ул. Быховская, 6, павильон S183. Зарегистрирован администрацией Ленинского района г. Могилёва в едином государственном регистре юридических лиц и индивидуальных предпринимателей 31.10.2007 г. за №790424627.</span>
                 <br /><br />
                 <span>Создание сайта: </span><a href="https://airlab.by/"><span class="footerLink">airlab.by</span></a>
             </div>
             <div class="footerRight">
                 <b>Заказы по телефону:</b>
                 <br /><br />
-                <span>Пн-Пт: 9:00 - 18:00</span>
+                <span>Пн: выходной</span>
                 <br />
-                <span>Сб: 10:00 - 17:00</span>
-                <br />
-                <span>Вс: выходной</span>
+                <span>Вт - Вс: 9:00 - 15:00</span>
             </div>
             <div class="clear"></div>
         </div>
