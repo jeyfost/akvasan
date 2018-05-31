@@ -182,8 +182,6 @@ $page = $pageResult->fetch_assoc();
                 <i class="fa fa-mobile" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<a href="tel:<?= COUNTRY_CODE ?> (<?= VELCOM_CODE ?>) <?= VELCOM_NUMBER ?>"><?= COUNTRY_CODE ?> <?= VELCOM_CODE ?> <b><?= VELCOM_NUMBER ?></b></a>
                 <br />
                 <i class="fa fa-mobile" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<a href="tel:<?= COUNTRY_CODE ?> (<?= MTS_CODE ?>) <?= MTS_NUMBER ?>"><?= COUNTRY_CODE ?> <?= MTS_CODE ?> <b><?= MTS_NUMBER ?></b></a>
-                <br />
-                <i class="fa fa-mobile" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<a href="tel:<?= COUNTRY_CODE ?> (<?= LIFE_CODE ?>) <?= LIFE_NUMBER ?>"><?= COUNTRY_CODE ?> <?= LIFE_CODE ?> <b><?= LIFE_NUMBER ?></b></a>
             </div>
             <div class="column">
                 <i class="fa fa-skype" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<a href="skype:<?= SKYPE_LOGIN ?>"><?= SKYPE_LOGIN ?></a>
