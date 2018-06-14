@@ -14,10 +14,10 @@ if($_SESSION['userID'] != 1) {
 }
 
 if(!empty($_REQUEST['id'])) {
-    $reviewCheckResult = $mysqli->query("SELECT COUNT(id) FROM akvasan_properties WHERE id = '".$mysqli->real_escape_string($_REQUEST['id'])."'");
-    $reviewCheck = $reviewCheckResult->fetch_array(MYSQLI_NUM);
+    $propertyCheckResult = $mysqli->query("SELECT COUNT(id) FROM akvasan_properties WHERE id = '".$mysqli->real_escape_string($_REQUEST['id'])."'");
+    $propertyCheck = $propertyCheckResult->fetch_array(MYSQLI_NUM);
 
-    if($reviewCheck[0] == 0) {
+    if($propertyCheck[0] == 0) {
         header("Location: index.php");
     }
 }
@@ -119,6 +119,11 @@ if(!empty($_REQUEST['id'])) {
     <a href="/admin/properties/">
         <div class="menuPointActive">
             <i class="fa fa-check-square-o" aria-hidden="true"></i><span> Характеристики товаров</span>
+        </div>
+    </a>
+    <a href="/admin/manufacturers/">
+        <div class="menuPoint">
+            <i class="fa fa-cubes" aria-hidden="true"></i><span> Производители</span>
         </div>
     </a>
     <a href="/admin/partners/">

@@ -130,6 +130,11 @@ if(!empty($_REQUEST['s'])) {
             <i class="fa fa-check-square-o" aria-hidden="true"></i><span> Характеристики товаров</span>
         </div>
     </a>
+    <a href="/admin/manufacturers/">
+        <div class="menuPoint">
+            <i class="fa fa-cubes" aria-hidden="true"></i><span> Производители</span>
+        </div>
+    </a>
     <a href="/admin/partners/">
         <div class="menuPoint">
             <i class="fa fa-handshake-o" aria-hidden="true"></i><span> Партнёры</span>

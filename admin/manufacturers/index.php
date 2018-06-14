@@ -2,16 +2,24 @@
 /**
  * Created by PhpStorm.
  * User: jeyfost
- * Date: 25.05.2018
- * Time: 10:07
+ * Date: 14.06.2018
+ * Time: 17:18
  */
-
 
 session_start();
 include("../../scripts/connect.php");
 
 if($_SESSION['userID'] != 1) {
     header("Location: ../");
+}
+
+if(!empty($_REQUEST['id'])) {
+    $manufacturerCheckResult = $mysqli->query("SELECT COUNT(id) FROM akvasan_manufacturers WHERE id = '".$mysqli->real_escape_string($_REQUEST['id'])."'");
+    $manufacturerCheck = $manufacturerCheckResult->fetch_array(MYSQLI_NUM);
+
+    if($manufacturerCheck[0] == 0) {
+        header("Location: index.php");
+    }
 }
 
 ?>
@@ -29,7 +37,7 @@ if($_SESSION['userID'] != 1) {
 
     <meta charset="utf-8" />
 
-    <title>Панель администрирования | Партнёры</title>
+    <title>Панель администрирования | Производители смесителей</title>
 
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -46,13 +54,11 @@ if($_SESSION['userID'] != 1) {
 
     <link rel="stylesheet" type="text/css" href="/css/admin.css" />
     <link rel="stylesheet" href="/libs/font-awesome-4.7.0/css/font-awesome.css" />
-    <link rel="stylesheet" href="/libs/lightview/css/lightview/lightview.css" />
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="/libs/lightview/js/lightview/lightview.js"></script>
     <script type="text/javascript" src="/libs/notify/notify.js"></script>
     <script type="text/javascript" src="/js/admin/common.js"></script>
-    <script type="text/javascript" src="/js/admin/partners/index.js"></script>
+    <script type="text/javascript" src="/js/admin/manufacturers/index.js"></script>
 
     <style>
         #page-preloader {position: fixed; left: 0; top: 0; right: 0; bottom: 0; background: #fff; z-index: 100500;}
@@ -116,12 +122,12 @@ if($_SESSION['userID'] != 1) {
         </div>
     </a>
     <a href="/admin/manufacturers/">
-        <div class="menuPoint">
+        <div class="menuPointActive">
             <i class="fa fa-cubes" aria-hidden="true"></i><span> Производители</span>
         </div>
     </a>
     <a href="/admin/partners/">
-        <div class="menuPointActive">
+        <div class="menuPoint">
             <i class="fa fa-handshake-o" aria-hidden="true"></i><span> Партнёры</span>
         </div>
     </a>
@@ -133,29 +139,43 @@ if($_SESSION['userID'] != 1) {
 </div>
 
 <div id="content">
-    <span class="headerFont">Редактирование слайдера с логотипами партнёров</span>
+    <span class="headerFont"><?php if(empty($_REQUEST['id'])) {echo "Управление производителями смесителей";} else {echo "Редактирование произовдителя смесителей";} ?></span>
     <br /><br />
-    <form method="post" enctype="multipart/form-data" id="partnersForm" name="partnersForm">
-        <label for="logoInput">Выберите логотипы:</label>
+    <form method="post" id="manufacturersForm">
+        <label for="manufacturerSelect">Производители:</label>
         <br />
-        <input type="file" class="file" id="logoInput" name="logo[]" multiple="multiple" />
-        <br /><br />
-        <div class="goodPhotos">
+        <select id="manufacturerSelect" name="manufacturer" onchange="window.location = '?id=' + this.options[this.selectedIndex].value">
+            <option value="">- Выберите производителя -</option>
             <?php
-                $logoResult = $mysqli->query("SELECT * FROM akvasan_partners");
-                while($logo = $logoResult->fetch_assoc()) {
-                    echo "
-                        <div class='logo'>
-                            <a href='/img/partners/".$logo['img']."' class='lightview' data-lightview-options='skin: \"light\"' data-lightview-group='photos'><img src='/img/partners/".$logo['img']."' /></a>
-							    <br />
-								<span onclick='deleteLogo(\"".$logo['id']."\")' class='photoLink'>Удалить</span>
-                        </div>
-                    ";
+                $manufacturerResult = $mysqli->query("SELECT * FROM akvasan_manufacturers ORDER BY name");
+                while($manufacturer = $manufacturerResult->fetch_assoc()) {
+                    echo "<option value='".$manufacturer['id']."'"; if($_REQUEST['id'] == $manufacturer['id']) {echo " selected";} echo ">".$manufacturer['name']."</option>";
                 }
             ?>
-        </div>
-        <br /><br /><br />
-        <input type='button' class='button' id='addLogoSubmit' value='Добавить' onmouseover='buttonHover("addLogoSubmit", 1)' onmouseout='buttonHover("addLogoSubmit", 0)' onclick='addLogo()' />
+        </select>
+        <?php
+            if(!empty($_REQUEST['id'])) {
+                $manufacturerResult = $mysqli->query("SELECT * FROM akvasan_manufacturers WHERE id = '".$mysqli->real_escape_string($_REQUEST['id'])."'");
+                $manufacturer = $manufacturerResult->fetch_assoc();
+
+                echo "
+                        <br /><br />
+                        <label for='manufacturerInput'>Название производителя:</label>
+                        <br />
+                        <input id='manufacturerInput' value='".$manufacturer['name']."' />
+                        <br /><br />
+                        <input type='button' class='button relative' id='manufacturerSubmit' value='Редактировать' onmouseover='buttonHover(\"manufacturerSubmit\", 1)' onmouseout='buttonHover(\"propertySubmit\", 0)' onclick='edit()' />
+                        <input type='button' class='button relative' id='deleteManufacturerSubmit' value='Удалить' onmouseover='buttonHoverRed(\"deleteManufacturerSubmit\", 1)' onmouseout='buttonHoverRed(\"deleteManufacturerSubmit\", 0)' onclick='deleteManufacturer()' style='margin-left: 20px;' />
+                        <a href='/admin/manufacturers/add.php'><input type='button' class='button relative' id='newManufacturerSubmit' value='Добавить нового производителя' onmouseover='buttonHover(\"newManufacturerSubmit\", 1)' onmouseout='buttonHover(\"newManufacturerSubmit\", 0)' style='margin-left: 20px;' /></a>
+                        <div class='clear'></div>
+                    ";
+            } else {
+                echo "
+                        <br /><br />
+                        <a href='/admin/manufacturers/add.php'><input type='button' class='button' id='newManufacturerSubmit' value='Добавить нового производителя' onmouseover='buttonHover(\"newManufacturerSubmit\", 1)' onmouseout='buttonHover(\"newManufacturerSubmit\", 0)' /></a>
+                    ";
+            }
+        ?>
     </form>
 </div>
 
