@@ -6,6 +6,8 @@
  * Time: 18:36
  */
 
+session_start();
+
 include("../scripts/connect.php");
 
 $url = substr($_SERVER['REQUEST_URI'], 1);
@@ -94,10 +96,32 @@ if($type != "good") {
             $quantityResult = $mysqli->query("SELECT COUNT(id) FROM akvasan_catalogue");
             break;
         case "category":
-            $quantityResult = $mysqli->query("SELECT COUNT(id) FROM akvasan_catalogue WHERE category = '".$category['id']."'");
+            $categoryIDResult = $mysqli->query("SELECT id FROM akvasan_categories WHERE url = '".$url[1]."'");
+            $categoryID = $categoryIDResult->fetch_array(MYSQLI_NUM);
+
+            if($categoryID[0] == FAUCET_CATEGORY_ID) {
+                if(empty($_SESSION['faucet_manufacturer'])) {
+                    $quantityResult = $mysqli->query("SELECT COUNT(id) FROM akvasan_catalogue WHERE category = '".FAUCET_CATEGORY_ID."'");
+                } else {
+                    $quantityResult = $mysqli->query("SELECT COUNT(id) FROM akvasan_catalogue WHERE category = '".FAUCET_CATEGORY_ID."' AND manufacturer = '".$_SESSION['faucet_manufacturer']."'");
+                }
+            } else {
+                $quantityResult = $mysqli->query("SELECT COUNT(id) FROM akvasan_catalogue WHERE category = '".$category['id']."'");
+            }
             break;
         case "subcategory":
-            $quantityResult = $mysqli->query("SELECT COUNT(id) FROM akvasan_catalogue WHERE subcategory = '".$subcategory['id']."'");
+            $categoryIDResult = $mysqli->query("SELECT id FROM akvasan_categories WHERE url = '".$url[1]."'");
+            $categoryID = $categoryIDResult->fetch_array(MYSQLI_NUM);
+
+            if($categoryID[0] == FAUCET_CATEGORY_ID) {
+                if(empty($_SESSION['faucet_manufacturer'])) {
+                    $quantityResult = $mysqli->query("SELECT COUNT(id) FROM akvasan_catalogue WHERE category = '".FAUCET_CATEGORY_ID."' AND subcategory = '".$subcategory['id']."'");
+                } else {
+                    $quantityResult = $mysqli->query("SELECT COUNT(id) FROM akvasan_catalogue WHERE category = '".FAUCET_CATEGORY_ID."' AND subcategory = '".$subcategory['id']."' AND manufacturer = '".$_SESSION['faucet_manufacturer']."'");
+                }
+            } else {
+                $quantityResult = $mysqli->query("SELECT COUNT(id) FROM akvasan_catalogue WHERE subcategory = '".$subcategory['id']."'");
+            }
             break;
         default:
             $quantityResult = $mysqli->query("SELECT COUNT(id) FROM akvasan_catalogue");
@@ -440,10 +464,32 @@ $page = $pageResult->fetch_assoc();
                                 $catalogueResult = $mysqli->query("SELECT * FROM akvasan_catalogue ORDER BY name LIMIT ".$start.", ".GOODS_ON_PAGE);
                                 break;
                             case "category":
-                                $catalogueResult = $mysqli->query("SELECT * FROM akvasan_catalogue WHERE category = '".$category['id']."' ORDER BY name LIMIT ".$start.", ".GOODS_ON_PAGE);
+                                $categoryIDResult = $mysqli->query("SELECT id FROM akvasan_categories WHERE url = '".$url[1]."'");
+                                $categoryID = $categoryIDResult->fetch_array(MYSQLI_NUM);
+
+                                if($categoryID[0] == FAUCET_CATEGORY_ID) {
+                                    if(empty($_SESSION['faucet_manufacturer'])) {
+                                        $catalogueResult = $mysqli->query("SELECT * FROM akvasan_catalogue WHERE category = '".FAUCET_CATEGORY_ID."' ORDER BY name LIMIT ".$start.", ".GOODS_ON_PAGE);
+                                    } else {
+                                        $catalogueResult = $mysqli->query("SELECT * FROM akvasan_catalogue WHERE category = '".FAUCET_CATEGORY_ID."' AND manufacturer = '".$_SESSION['faucet_manufacturer']."' ORDER BY name LIMIT ".$start.", ".GOODS_ON_PAGE);
+                                    }
+                                } else {
+                                    $catalogueResult = $mysqli->query("SELECT * FROM akvasan_catalogue WHERE category = '".$category['id']."' ORDER BY name LIMIT ".$start.", ".GOODS_ON_PAGE);
+                                }
                                 break;
                             case "subcategory":
-                                $catalogueResult = $mysqli->query("SELECT * FROM akvasan_catalogue WHERE subcategory = '".$subcategory['id']."' ORDER BY name LIMIT ".$start.", ".GOODS_ON_PAGE);
+                                $categoryIDResult = $mysqli->query("SELECT id FROM akvasan_categories WHERE url = '".$url[1]."'");
+                                $categoryID = $categoryIDResult->fetch_array(MYSQLI_NUM);
+
+                                if($categoryID[0] == FAUCET_CATEGORY_ID) {
+                                    if(empty($_SESSION['faucet_manufacturer'])) {
+                                        $catalogueResult = $mysqli->query("SELECT * FROM akvasan_catalogue WHERE category = '".FAUCET_CATEGORY_ID."' AND subcategory = '".$subcategory['id']."' ORDER BY name LIMIT ".$start.", ".GOODS_ON_PAGE);
+                                    } else {
+                                        $catalogueResult = $mysqli->query("SELECT * FROM akvasan_catalogue WHERE category = '".FAUCET_CATEGORY_ID."' AND subcategory = '".$subcategory['id']."' AND manufacturer = '".$_SESSION['faucet_manufacturer']."' ORDER BY name LIMIT ".$start.", ".GOODS_ON_PAGE);
+                                    }
+                                } else {
+                                    $catalogueResult = $mysqli->query("SELECT * FROM akvasan_catalogue WHERE subcategory = '".$subcategory['id']."' ORDER BY name LIMIT ".$start.", ".GOODS_ON_PAGE);
+                                }
                                 break;
                             case "good":
                                 $catalogueResult = $mysqli->query("SELECT * FROM akvasan_catalogue WHERE id = '".$good['id']."'");
@@ -534,6 +580,25 @@ $page = $pageResult->fetch_assoc();
                             ";
                         } else {
                             //Режим отображения каталога
+                            if($categoryID[0] == FAUCET_CATEGORY_ID) {
+                                echo "
+                                    <form method='post'>
+                                        <select id='manufacturerSelect' onchange='mSelect(\"".$type."\")'>
+                                            <option value=''"; if(empty($_SESSION['faucet_manufacturer'])) {echo " selected";} echo ">Все производители</option>
+                                ";
+
+                                 $manufacturerResult = $mysqli->query("SELECT * FROM akvasan_manufacturers ORDER BY name");
+                                 while($manufacturer = $manufacturerResult->fetch_assoc()) {
+                                     echo "<option value='".$manufacturer['id']."'"; if($_SESSION['faucet_manufacturer'] == $manufacturer['id']) {echo " selected";} echo ">".$manufacturer['name']."</option>";
+                                 }
+
+                                echo "
+                                        </select>
+                                    </form>
+                                    <br />
+                                ";
+                            }
+
                             if($catalogueResult->num_rows > 0) {
                                 while($catalogue = $catalogueResult->fetch_assoc()) {
                                     $goodCategoryResult = $mysqli->query("SELECT * FROM akvasan_categories WHERE id = '".$catalogue['category']."'");
@@ -659,7 +724,7 @@ $page = $pageResult->fetch_assoc();
                                 if($uri >= 5 and $uri < $check) {
                                     echo "
                                                 <br /><br />
-                                                <div id='pageNumbers'>
+
                                                     <a href='".$link.($uri - 1)."'><div class='pageNumberBlockSide' id='pbPrev' onmouseover='pageBlock(1, \"pbPrev\", \"pbtPrev\")' onmouseout='pageBlock(0, \"pbPrev\", \"pbtPrev\")'><span class='paginationLink' id='pbtPrev'>Предыдущая</span></div></a>
                                                     <a href='".$link."1'><div id='pb1' class='pageNumberBlock' onmouseover='pageBlock(1, \"pb1\", \"pbt1\")' onmouseout='pageBlock(0, \"pb1\", \"pbt1\")'><span class='paginationLink' id='pbt1'>1</span></div></a>
                                                     <div class='pageNumberBlock' style='cursor: url(/img/cursor/no.cur), auto;'><span class='paginationInactive'>...</span></div>
@@ -674,7 +739,7 @@ $page = $pageResult->fetch_assoc();
                                 } else {
                                     echo "
                                                 <br /><br />
-                                                <div id='pageNumbers'>
+
                                                     <a href='".$link.($uri - 1)."'><div class='pageNumberBlockSide' id='pbPrev' onmouseover='pageBlock(1, \"pbPrev\", \"pbtPrev\")' onmouseout='pageBlock(0, \"pbPrev\", \"pbtPrev\")'><span class='paginationLink' id='pbtPrev'>Предыдущая</span></div></a>
                                                     <a href='".$link."1'><div id='pb1' class='pageNumberBlock' onmouseover='pageBlock(1, \"pb1\", \"pbt1\")' onmouseout='pageBlock(0, \"pb1\", \"pbt1\")'><span class='paginationLink' id='pbt1'>1</span></div></a>
                                                     <div class='pageNumberBlock' style='cursor: url(/img/cursor/no.cur), auto;'><span class='paginationInactive'>...</span></div>

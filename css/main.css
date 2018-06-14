@@ -6,6 +6,7 @@ a span {transition: .3s;}
 h1 {font-size: 24px; font-weight: normal;}
 label {font-family: "Istok Web", sans-serif;}
 hr {opacity: .3;}
+select {height: 40px; line-height: 40px; margin-top: 5px; padding: 5px;}
 
 a:hover, .goodContainerName a:hover, .searchDescription a:hover, .searchClose i:hover {color: #54a9fc;}
 

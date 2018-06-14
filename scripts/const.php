@@ -25,3 +25,4 @@ define("SHOP_LOCATION", "Республика Беларусь, г. Могилё
 define("SHOP_ADDRESS", "Могилёвский рынок, ул. Быховская, 6, пав. S183");
 
 define("GOODS_ON_PAGE", 10);
+define("FAUCET_CATEGORY_ID", 1);

@@ -40,3 +40,19 @@ function pageBlock(action, block, text) {
         document.getElementById(text).style.color = "#000";
     }
 }
+
+function mSelect(type) {
+    const id = $("#manufacturerSelect").val();
+
+    $.ajax({
+        type: "POST",
+        data: {
+            "id": id,
+            "type": type
+        },
+        url: "/scripts/catalogue/ajaxManufacturerSelect.php",
+        success: function () {
+            location.reload();
+        }
+    });
+}
