@@ -181,6 +181,25 @@ if(!empty($_REQUEST['s'])) {
             }
 
             if(!empty($_REQUEST['s'])) {
+                if($_REQUEST['c'] == FAUCET_CATEGORY_ID) {
+                    echo "
+                        <br /><br />
+                        <label for='manufacturerSelect'>Выберите производителя:</label>
+                        <br />
+                        <select id='manufacturerSelect' name='manufacturer'>
+                            <option value=''>- Выберите производителя -</option>
+                    ";
+
+                    $manufacturerResult = $mysqli->query("SELECT * FROM akvasan_manufacturers ORDER BY name");
+                    while($manufacturer = $manufacturerResult->fetch_assoc()) {
+                        echo "<option value='".$manufacturer['id']."'>".$manufacturer['name']."</option>";
+                    }
+
+                    echo "
+                        </select>
+                    ";
+                }
+
                 echo "
                     <br /><br />
                     <label for='nameInput'>Название товара:</label>
@@ -239,7 +258,7 @@ if(!empty($_REQUEST['s'])) {
                 echo "
                     </table>
                     <br /><br />
-                    <input type='button' class='button' id='addGoodSubmit' value='Добавить' onmouseover='buttonHover(\"addGoodSubmit\", 1)' onmouseout='buttonHover(\"addGoodSubmit\", 0)' onclick='addGood()' />
+                    <input type='button' class='button' id='addGoodSubmit' value='Добавить' onmouseover='buttonHover(\"addGoodSubmit\", 1)' onmouseout='buttonHover(\"addGoodSubmit\", 0)' onclick='"; if($_REQUEST['c'] == FAUCET_CATEGORY_ID) {echo "addGood(1)";} else {echo "addGood(0)";} echo "' />
                 ";
             }
         ?>

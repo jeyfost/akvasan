@@ -1,6 +1,7 @@
-function addGood() {
+function addGood(check) {
     const category = $("#categorySelect").val();
     const subcategory = $("#subcategorySelect").val();
+    const manufacturer = $("#manufacturerSelect").val();
     const name = $("#nameInput").val();
     const url = $("#urlInput").val();
     const price = $("#priceInput").val();
@@ -41,83 +42,168 @@ function addGood() {
 
     if(countID > 0) {
         if(countID == countValue) {
-            if(name !== "") {
-                if(url !== "") {
-                    if(price !== "") {
-                        if(code !== "") {
-                            if(text !== "" && text !== "<p><br></p>") {
-                                $.ajax({
-                                    type: "POST",
-                                    data: formData,
-                                    processData: false,
-                                    contentType: false,
-                                    dataType: "json",
-                                    url: "/scripts/admin/goods/ajaxAddGood.php",
-                                    beforeSend: function () {
-                                        $.notify("Товар добавляется...", "info");
-                                    },
-                                    success: function(response) {
-                                        switch (response) {
-                                            case "ok":
-                                                $.notify("Товар был успешно добавлен.", "success");
+            if(check === 1) {
+                if(manufacturer !== "") {
+                    if(name !== "") {
+                        if(url !== "") {
+                            if(price !== "") {
+                                if(code !== "") {
+                                    if(text !== "" && text !== "<p><br></p>") {
+                                        $.ajax({
+                                            type: "POST",
+                                            data: formData,
+                                            processData: false,
+                                            contentType: false,
+                                            dataType: "json",
+                                            url: "/scripts/admin/goods/ajaxAddGood.php",
+                                            beforeSend: function () {
+                                                $.notify("Товар добавляется...", "info");
+                                            },
+                                            success: function(response) {
+                                                switch (response) {
+                                                    case "ok":
+                                                        $.notify("Товар был успешно добавлен.", "success");
 
-                                                setTimeout(function () {
-                                                    window.location.href = "/admin/goods/?c=" + category + "&s=" + subcategory;
-                                                }, 2000);
-                                                break;
-                                            case "failed":
-                                                $.notify("Во время добавления товара произошла ошибка. Попробуйте снова.", "error");
-                                                break;
-                                            case "name duplicate":
-                                                $.notify("Такое название товара уже существует в выбранном подразделе.", "error");
-                                                break;
-                                            case "url duplicate":
-                                                $.notify("Такой идентификатор товара уже существует.", "error");
-                                                break;
-                                            case "url format":
-                                                $.notify("Идентификатор не может состоять из одних цифр.", "error");
-                                                break;
-                                            case "photo":
-                                                $.notify("Вы не выбрали фотографию товара.", "error");
-                                                break;
-                                            case "preview":
-                                                $.notify("Выбранная фотография товара имеет недопустимый формат.", "error");
-                                                break;
-                                            case "preview upload":
-                                                $.notify("Во время загрузки фотографии товара произошла ошибка. Попробуйте снова.", "error");
-                                                break;
-                                            case "photos":
-                                                $.notify("Одна или несколько дополнительных фотографий имеют недопустимый формат.", "error");
-                                                break;
-                                            case "photos upload":
-                                                $.notify("Некоторые дополнительные фотографии не были загружены.", "error");
-                                                break;
-                                            case "code":
-                                                $.notify("Введённый вами артикул уже существует.", "error");
-                                                break;
-                                            default:
-                                                $.notify(response, "warn");
-                                                break;
-                                        }
-                                    },
-                                    error: function (jqXHR, exception) {
-                                        console.log(jqXHR);
+                                                        setTimeout(function () {
+                                                            window.location.href = "/admin/goods/?c=" + category + "&s=" + subcategory;
+                                                        }, 2000);
+                                                        break;
+                                                    case "failed":
+                                                        $.notify("Во время добавления товара произошла ошибка. Попробуйте снова.", "error");
+                                                        break;
+                                                    case "name duplicate":
+                                                        $.notify("Такое название товара уже существует в выбранном подразделе.", "error");
+                                                        break;
+                                                    case "url duplicate":
+                                                        $.notify("Такой идентификатор товара уже существует.", "error");
+                                                        break;
+                                                    case "url format":
+                                                        $.notify("Идентификатор не может состоять из одних цифр.", "error");
+                                                        break;
+                                                    case "photo":
+                                                        $.notify("Вы не выбрали фотографию товара.", "error");
+                                                        break;
+                                                    case "preview":
+                                                        $.notify("Выбранная фотография товара имеет недопустимый формат.", "error");
+                                                        break;
+                                                    case "preview upload":
+                                                        $.notify("Во время загрузки фотографии товара произошла ошибка. Попробуйте снова.", "error");
+                                                        break;
+                                                    case "photos":
+                                                        $.notify("Одна или несколько дополнительных фотографий имеют недопустимый формат.", "error");
+                                                        break;
+                                                    case "photos upload":
+                                                        $.notify("Некоторые дополнительные фотографии не были загружены.", "error");
+                                                        break;
+                                                    case "code":
+                                                        $.notify("Введённый вами артикул уже существует.", "error");
+                                                        break;
+                                                    default:
+                                                        $.notify(response, "warn");
+                                                        break;
+                                                }
+                                            },
+                                            error: function (jqXHR, exception) {
+                                                console.log(jqXHR);
+                                            }
+                                        });
+                                    } else {
+                                        $.notify("Вы не ввели краткое описание товара.", "error");
                                     }
-                                });
+                                } else {
+                                    $.notify("Вы не ввели код товара.", "error");
+                                }
                             } else {
-                                $.notify("Вы не ввели краткое описание товара.", "error");
+                                $.notify("Вы не ввели цену товара.", "error");
                             }
                         } else {
-                            $.notify("Вы не ввели код товара.", "error");
+                            $.notify("Вы не ввели идентификатор товара.", "error");
                         }
                     } else {
-                        $.notify("Вы не ввели цену товара.", "error");
+                        $.notify("Вы не ввели название товара.", "error");
                     }
                 } else {
-                    $.notify("Вы не ввели идентификатор товара.", "error");
+                    $.notify("Вы не выбрали производителя смесителя.", "error");
                 }
             } else {
-                $.notify("Вы не ввели название товара.", "error");
+                if(name !== "") {
+                    if(url !== "") {
+                        if(price !== "") {
+                            if(code !== "") {
+                                if(text !== "" && text !== "<p><br></p>") {
+                                    $.ajax({
+                                        type: "POST",
+                                        data: formData,
+                                        processData: false,
+                                        contentType: false,
+                                        dataType: "json",
+                                        url: "/scripts/admin/goods/ajaxAddGood.php",
+                                        beforeSend: function () {
+                                            $.notify("Товар добавляется...", "info");
+                                        },
+                                        success: function(response) {
+                                            switch (response) {
+                                                case "ok":
+                                                    $.notify("Товар был успешно добавлен.", "success");
+
+                                                    setTimeout(function () {
+                                                        window.location.href = "/admin/goods/?c=" + category + "&s=" + subcategory;
+                                                    }, 2000);
+                                                    break;
+                                                case "failed":
+                                                    $.notify("Во время добавления товара произошла ошибка. Попробуйте снова.", "error");
+                                                    break;
+                                                case "name duplicate":
+                                                    $.notify("Такое название товара уже существует в выбранном подразделе.", "error");
+                                                    break;
+                                                case "url duplicate":
+                                                    $.notify("Такой идентификатор товара уже существует.", "error");
+                                                    break;
+                                                case "url format":
+                                                    $.notify("Идентификатор не может состоять из одних цифр.", "error");
+                                                    break;
+                                                case "photo":
+                                                    $.notify("Вы не выбрали фотографию товара.", "error");
+                                                    break;
+                                                case "preview":
+                                                    $.notify("Выбранная фотография товара имеет недопустимый формат.", "error");
+                                                    break;
+                                                case "preview upload":
+                                                    $.notify("Во время загрузки фотографии товара произошла ошибка. Попробуйте снова.", "error");
+                                                    break;
+                                                case "photos":
+                                                    $.notify("Одна или несколько дополнительных фотографий имеют недопустимый формат.", "error");
+                                                    break;
+                                                case "photos upload":
+                                                    $.notify("Некоторые дополнительные фотографии не были загружены.", "error");
+                                                    break;
+                                                case "code":
+                                                    $.notify("Введённый вами артикул уже существует.", "error");
+                                                    break;
+                                                default:
+                                                    $.notify(response, "warn");
+                                                    break;
+                                            }
+                                        },
+                                        error: function (jqXHR, exception) {
+                                            console.log(jqXHR);
+                                        }
+                                    });
+                                } else {
+                                    $.notify("Вы не ввели краткое описание товара.", "error");
+                                }
+                            } else {
+                                $.notify("Вы не ввели код товара.", "error");
+                            }
+                        } else {
+                            $.notify("Вы не ввели цену товара.", "error");
+                        }
+                    } else {
+                        $.notify("Вы не ввели идентификатор товара.", "error");
+                    }
+                } else {
+                    $.notify("Вы не ввели название товара.", "error");
+                }
             }
         } else {
             $.notify("Значения некоторых выбранных характеристик товара пусты. Заполните значения всех выбранных характеристик.", "error");

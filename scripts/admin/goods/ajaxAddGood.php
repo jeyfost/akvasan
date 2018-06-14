@@ -14,6 +14,7 @@ ob_start();
 
 $categoryID = $mysqli->real_escape_string($_POST['category']);
 $subcategoryID = $mysqli->real_escape_string($_POST['subcategory']);
+$manufacturer = $mysqli->real_escape_string($_POST['manufacturer']);
 $name = $mysqli->real_escape_string($_POST['name']);
 $url = $mysqli->real_escape_string($_POST['url']);
 $price = $mysqli->real_escape_string($_POST['price']);
@@ -32,6 +33,10 @@ if($leader == "on") {
     $leader = 1;
 } else {
     $leader = 0;
+}
+
+if(empty($manufacturer)) {
+    $manufacturer = 0;
 }
 
 $nameCheckResult = $mysqli->query("SELECT COUNT(id) FROM akvasan_catalogue WHERE name = '".$name."' AND subcategory = '".$subcategoryID."'");
@@ -97,7 +102,7 @@ if($nameCheck[0] == 0) {
                                 $photoUploadDir = "../../../img/catalogue/big/";
                                 $photoUpload = $photoUploadDir.$photoDBName;
 
-                                if($mysqli->query("INSERT INTO akvasan_catalogue (id, name, photo, preview, category, subcategory, description, price, code, url, date, leader) VALUES ('".$id."', '".$name."', '".$photoDBName."', '".$previewDBName."', '".$categoryID."', '".$subcategoryID."', '".$text."', '".$price."', '".$code."', '".$url."', '".date('Y-m-d H:i:s')."', '".$leader."')")) {
+                                if($mysqli->query("INSERT INTO akvasan_catalogue (id, name, photo, preview, category, subcategory, description, price, code, url, date, leader, manufacturer) VALUES ('".$id."', '".$name."', '".$photoDBName."', '".$previewDBName."', '".$categoryID."', '".$subcategoryID."', '".$text."', '".$price."', '".$code."', '".$url."', '".date('Y-m-d H:i:s')."', '".$leader."', '".$manufacturer."')")) {
                                     for($i = 0; $i < count($propertyID); $i++) {
                                         $mysqli->query("INSERT INTO akvasan_good_properties (property_id, good_id, value) VALUES ('".$propertyID[$i]."', '".$id."', '".$propertyValue[$i]."')");
                                     }
