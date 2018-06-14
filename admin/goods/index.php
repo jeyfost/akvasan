@@ -213,6 +213,21 @@ if(!empty($_REQUEST['id'])) {
                 $goodResult = $mysqli->query("SELECT * FROM akvasan_catalogue WHERE id = '".$mysqli->real_escape_string($_REQUEST['id'])."'");
                 $good = $goodResult->fetch_assoc();
 
+                if($_REQUEST['c'] == FAUCET_CATEGORY_ID) {
+                    echo "
+                        <br /><br />
+                        <select id='manufacturerSelect' name='manufacturer'>
+                    ";
+
+                    $manufacturerResult = $mysqli->query("SELECT * FROM akvasan_manufacturers ORDER BY name");
+                    while($manufacturer = $manufacturerResult->fetch_assoc()) {
+                        echo "<option value='".$manufacturer['id']."'"; if($manufacturer['id'] == $good['manufacturer']) {echo " selected";} echo ">".$manufacturer['name']."</option>";
+                        }
+
+                    echo "</select>";
+                }
+
+
                 echo "
                     <br /><br />
                     <label for='nameInput'>Название товара:</label>

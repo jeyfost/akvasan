@@ -14,6 +14,7 @@ ob_start();
 
 $categoryID = $mysqli->real_escape_string($_POST['category']);
 $subcategoryID = $mysqli->real_escape_string($_POST['subcategory']);
+$manufacturer = $mysqli->real_escape_string($_POST['manufacturer']);
 $goodID = $mysqli->real_escape_string($_POST['good']);
 $name = $mysqli->real_escape_string($_POST['name']);
 $url = $mysqli->real_escape_string($_POST['url']);
@@ -28,6 +29,10 @@ if($leader == "on") {
     $leader = 1;
 } else {
     $leader = 0;
+}
+
+if(empty($manufacturer)) {
+    $manufacturer = 0;
 }
 
 $nameCheckResult = $mysqli->query("SELECT COUNT(id) FROM akvasan_catalogue WHERE name = '".$name."' AND subcategory = '".$subcategoryID."' AND id <> '".$goodID."'");
@@ -142,7 +147,7 @@ if($nameCheck[0] == 0) {
                     exit;
                 }
 
-                if($mysqli->query("UPDATE akvasan_catalogue SET name = '".$name."', description = '".$text."', code = '".$code."', leader = '".$leader."', url = '".$url."' WHERE id = '".$goodID."'")) {
+                if($mysqli->query("UPDATE akvasan_catalogue SET name = '".$name."', description = '".$text."', code = '".$code."', leader = '".$leader."', url = '".$url."', manufacturer = '".$manufacturer."' WHERE id = '".$goodID."'")) {
                     $mysqli->query("DELETE FROM akvasan_good_properties WHERE good_id = '".$goodID."'");
 
                     for($i = 0; $i < count($propertyID); $i++) {
