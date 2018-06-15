@@ -1,6 +1,6 @@
 function add() {
     const name = $("#propertyInput").val();
-    console.log(name);
+
     if(name !== "") {
         $.ajax({
             type: "POST",
