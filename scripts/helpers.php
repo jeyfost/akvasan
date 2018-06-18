@@ -28,7 +28,7 @@ function dateToString($date) {
     $month = substr($date, 5, 2);
     $day = substr($date, 8, 2);
     $hour = (int)substr($date, 11, 2);
-    $minutes = substr($date, 17, 2);
+    $minutes = substr($date, 14, 2);
 
     switch((int)$month) {
         case 1:
