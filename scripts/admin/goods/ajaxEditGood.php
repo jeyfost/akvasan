@@ -147,7 +147,7 @@ if($nameCheck[0] == 0) {
                     exit;
                 }
 
-                if($mysqli->query("UPDATE akvasan_catalogue SET name = '".$name."', description = '".$text."', code = '".$code."', leader = '".$leader."', url = '".$url."', manufacturer = '".$manufacturer."' WHERE id = '".$goodID."'")) {
+                if($mysqli->query("UPDATE akvasan_catalogue SET name = '".$name."', description = '".$text."', price = '".$price."', code = '".$code."', leader = '".$leader."', url = '".$url."', manufacturer = '".$manufacturer."' WHERE id = '".$goodID."'")) {
                     $mysqli->query("DELETE FROM akvasan_good_properties WHERE good_id = '".$goodID."'");
 
                     for($i = 0; $i < count($propertyID); $i++) {
